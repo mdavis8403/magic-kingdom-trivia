@@ -381,7 +381,7 @@ private fun SettingsScreen(
             selected = settings.questionCount,
             label = Int::toString,
             onSelect = { onUpdate(settings.copy(questionCount = it)) },
-            firstModifier = Modifier.focusRequester(firstFocus),
+            modifier = Modifier.focusRequester(firstFocus),
         )
 
         SettingsHeading("Timer")
@@ -420,7 +420,7 @@ private fun <T> ChoiceRow(
     selected: T,
     label: (T) -> String,
     onSelect: (T) -> Unit,
-    firstModifier: Modifier = Modifier,
+    modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -434,7 +434,7 @@ private fun <T> ChoiceRow(
                 onClick = { onSelect(value) },
                 modifier = Modifier
                     .weight(1f)
-                    .then(if (index == 0) firstModifier else Modifier),
+                    .then(if (index == 0) modifier else Modifier),
             )
         }
     }

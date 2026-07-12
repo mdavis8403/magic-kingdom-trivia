@@ -1,0 +1,6 @@
+# Copy this file to signing.properties and replace every value locally.
+# signing.properties and keystore files are ignored by Git.
+storeFile=/path/to/release-key.jks
+storePassword=replace-with-local-password
+keyAlias=release
+keyPassword=replace-with-local-password

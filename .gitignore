@@ -3,6 +3,9 @@
 .idea/
 build/
 local.properties
+signing.properties
+*.jks
+*.keystore
 captures/
 *.iml
 app/build/
