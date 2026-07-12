@@ -1,7 +1,6 @@
 package com.mdavis8403.magickingdomtrivia.ui
 
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -64,7 +63,6 @@ fun TriviaApp(viewModel: TriviaViewModel) {
     ) {
         AnimatedContent(
             targetState = screenFor(state),
-            transitionSpec = { tween(durationMillis = 300) togetherWith tween(durationMillis = 300) },
             label = "screen-animation",
         ) { screen ->
             when (screen) {
@@ -466,4 +464,3 @@ private fun difficultyLabel(difficulty: com.mdavis8403.magickingdomtrivia.data.D
         com.mdavis8403.magickingdomtrivia.data.Difficulty.MEDIUM -> "Challenge"
         com.mdavis8403.magickingdomtrivia.data.Difficulty.HARD -> "Deep cut"
     }
-
