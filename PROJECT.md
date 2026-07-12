@@ -64,7 +64,7 @@ Navigation is intentionally lightweight rather than using Navigation Compose. `T
 - `app/src/main/java/com/mdavis8403/magickingdomtrivia/data/` contains models, JSON parsing, repository abstractions, and DataStore repositories.
 - `app/src/main/java/com/mdavis8403/magickingdomtrivia/domain/` contains settings, game state/engine, statistics accumulation, and state serialization.
 - `app/src/main/java/com/mdavis8403/magickingdomtrivia/ui/` contains screen navigation, ViewModel, Compose UI, focus behavior, and theme.
-- `app/src/main/res/` contains the app-name string, colors, Android theme, adaptive launcher art, and the 320 x 180 TV banner.
+- `app/src/main/res/` contains the app-name string, colors, Android theme, adaptive launcher art, the 320 x 180 TV banner, and the full-screen Home background `drawable-nodpi/home_screen_background.webp`.
 - `app/src/test/` contains local JVM tests for JSON parsing, filtering, game logic, statistics, and restoration serialization.
 - `app/src/androidTest/` contains Android Compose tests for initial focus and D-pad navigation.
 - `README.md` is the concise setup, build, install, question-update, and branding guide.
@@ -152,15 +152,17 @@ To add or replace questions, prefer editing the standalone bank (or `tools/origi
 
 # User Experience
 
-The interface uses a dark navy-to-plum gradient, jewel-tone gold/mint/rose accents, high contrast, large typography, generous spacing, large controls, subtle screen transitions, and 56 dp by 38 dp television-safe outer margins. Decorative artwork consists only of original geometry.
+The interface uses a dark navy-to-plum gradient, jewel-tone gold/mint/rose accents, high contrast, large typography, generous spacing, large controls, subtle screen transitions, and 56 dp by 38 dp television-safe outer margins.
+
+The Home screen is the exception: it fills the display edge-to-edge with an approved full-screen background image (`@drawable/home_screen_background`) and overlays transparent, D-pad-focusable controls aligned to the artwork. The image and its overlays are locked to a shared 16:9 canvas (via `BoxWithConstraints`), so interactive regions stay aligned at 1920x1080, 3840x2160, and other 16:9 resolutions; only non-16:9 screens letterbox onto a dark gradient, which also serves as the fallback if the image cannot decode. Focused overlays draw only a tasteful treatment (soft gold glow, gold border, slight scale, faint gold wash) and never cover the baked-in text or icons; the active profile shows a steady gold selection ring distinct from the focus treatment. `TriviaApp` renders Home full-bleed and wraps every other screen in the gradient `MagicalBackdrop`.
 
 The experience should continue to resemble a polished family game show with a distinct original identity. Do not add Disney logos, character artwork, film stills, copyrighted music, trademark graphics as decoration, or other protected assets. Factual names may appear in questions and category labels.
 
-The app name is sourced from `@string/app_name` for the manifest and Home screen, making it easy to rename in one place.
+The app name is sourced from `@string/app_name` for the manifest label. The Home screen title is part of the approved background artwork rather than a text view, so renaming the app does not change the Home art.
 
 # Screens and Game Flow
 
-1. **Home - implemented.** Shows Play/Resume, Categories, Difficulty, Game settings, Statistics, current category, difficulty, question count, and timer.
+1. **Home - implemented.** A full-screen approved background image with transparent, D-pad-focusable overlays mapped to existing actions: Play/Resume, four profile cards (Matt, Meg, Mia, Guest) with a live selected-profile indicator, and Profiles, Categories, Statistics, and Settings. Overlays are positioned proportionally on a 16:9 canvas. The Difficulty screen and route remain intact but are not surfaced by the approved Home art; difficulty keeps its current value until adjusted (a future task can add a Difficulty entry, for example within Settings). The Profiles action currently moves focus to the profile chooser as a placeholder for a future profiles screen.
 2. **Categories - implemented.** Shows Mixed plus all data-derived categories in a three-column remote-friendly grid.
 3. **Difficulty - implemented.** Supports Easy, Medium, Hard, and Mixed.
 4. **Game settings - implemented.** Supports question count, timer, randomization, explanations, automatic advancement, recent avoidance, and sound.
@@ -182,7 +184,7 @@ Everything is operable with Up, Down, Left, Right, Center Select, and Back. Touc
 
 Current focus behavior:
 
-- Home initially focuses Play or Resume.
+- Home initially focuses Play or Resume; explicit D-pad order flows Play down into the profile row, the profile row down into the bottom actions, and each row's edges hold focus rather than losing it.
 - Categories focuses the selected category.
 - Difficulty focuses the selected difficulty.
 - Settings focuses the first question-count choice.
@@ -202,7 +204,7 @@ Back behavior:
 - Dialog Back dismisses the dialog.
 - Back on Home follows normal Android activity behavior.
 
-Compose instrumentation tests verify Home initial focus and D-pad movement/selection into Categories. They compile locally but require an Android TV emulator or physical device to execute.
+Compose instrumentation tests verify Home initial focus on Play and D-pad navigation across the image-overlay controls (Play down to the Matt profile, and Play through the profile row into the Categories action). Overlay controls are located by their accessibility content descriptions. The tests compile locally but require an Android TV emulator or physical device to execute.
 
 # Android TV Requirements
 
@@ -307,7 +309,7 @@ There are 14 local JUnit tests covering:
 - Recent-history limits and newest-occurrence behavior.
 - Active game-state serialization and corrupt-state rejection.
 
-Two instrumented Compose tests cover initial Home focus and D-pad navigation/selection into Categories. `compileDebugAndroidTestKotlin` passes. The tests have not been executed because no emulator or Shield is connected in the current development environment.
+Three instrumented Compose tests cover initial Home focus on Play and D-pad navigation across the image-overlay controls into the Categories action. `compileDebugAndroidTestKotlin` passes. The tests have not been executed because no emulator or Shield is connected in the current development environment.
 
 `lintDebug` passes with zero errors. Its remaining warnings are dependency, Gradle, compile SDK, and target SDK version-availability notices retained for the verified AGP 8.13.2, Gradle 8.13, Kotlin 2.2.21, and SDK 35 compatibility set.
 
