@@ -13,6 +13,7 @@ import com.mdavis8403.magickingdomtrivia.data.SettingsRepository
 import com.mdavis8403.magickingdomtrivia.data.StatisticsRepository
 import com.mdavis8403.magickingdomtrivia.domain.GameSettings
 import com.mdavis8403.magickingdomtrivia.domain.GameStateCodec
+import com.mdavis8403.magickingdomtrivia.domain.StatisticsAccumulator
 import com.mdavis8403.magickingdomtrivia.domain.TriviaGameEngine
 import com.mdavis8403.magickingdomtrivia.domain.TriviaGameState
 import com.mdavis8403.magickingdomtrivia.domain.TriviaStatistics
@@ -34,6 +35,15 @@ class TriviaViewModel(
         private set
 
     var statistics: TriviaStatistics by mutableStateOf(TriviaStatistics())
+        private set
+
+    var currentScreen: TriviaScreen by mutableStateOf(
+        when {
+            uiState.session != null -> TriviaScreen.QUESTION
+            uiState.summary != null -> TriviaScreen.RESULTS
+            else -> TriviaScreen.HOME
+        },
+    )
         private set
 
     init {
@@ -62,11 +72,17 @@ class TriviaViewModel(
     }
 
     fun startGame() {
+        if (uiState.session != null) {
+            currentScreen = TriviaScreen.QUESTION
+            return
+        }
         setState(engine.requestStart(uiState, statistics.recentlyPlayedQuestionIds.toSet()))
+        if (uiState.session != null) currentScreen = TriviaScreen.QUESTION
     }
 
     fun confirmStart() {
         setState(engine.confirmStart(uiState, statistics.recentlyPlayedQuestionIds.toSet()))
+        if (uiState.session != null) currentScreen = TriviaScreen.QUESTION
     }
 
     fun cancelStart() {
@@ -87,19 +103,37 @@ class TriviaViewModel(
         setState(nextState)
         val completedSummary = nextState.summary
         if (previousSummary == null && completedSummary != null) {
+            currentScreen = TriviaScreen.RESULTS
+            statistics = StatisticsAccumulator.record(statistics, completedSummary)
             viewModelScope.launch { statisticsRepository.recordGame(completedSummary) }
         }
     }
 
     fun playAgain() {
         setState(engine.playAgain(uiState, statistics.recentlyPlayedQuestionIds.toSet()))
+        if (uiState.session != null) currentScreen = TriviaScreen.QUESTION
     }
 
     fun returnHome() {
         setState(engine.returnHome(uiState))
+        currentScreen = TriviaScreen.HOME
+    }
+
+    fun navigateTo(screen: TriviaScreen) {
+        currentScreen = screen
+    }
+
+    fun handleBack() {
+        when (currentScreen) {
+            TriviaScreen.HOME -> Unit
+            TriviaScreen.QUESTION -> currentScreen = TriviaScreen.HOME
+            TriviaScreen.RESULTS -> returnHome()
+            else -> currentScreen = TriviaScreen.HOME
+        }
     }
 
     fun resetStatistics() {
+        statistics = TriviaStatistics()
         viewModelScope.launch { statisticsRepository.reset() }
     }
 
