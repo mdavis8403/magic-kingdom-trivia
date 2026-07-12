@@ -168,7 +168,7 @@ private fun HomeScreen(
                     onClick = onStart,
                     modifier = Modifier.focusRequester(startFocusRequester),
                 ) {
-                    Text("Start 5-question round")
+                    Text("Start round")
                 }
             }
         }
@@ -256,7 +256,7 @@ private fun QuestionScreen(
     onNext: () -> Unit,
 ) {
     val question = session.currentQuestion
-    val selectionLocked = session.selectedAnswerIndex != null
+    val selectionLocked = session.answerRevealed
 
     Column(
         modifier = Modifier

@@ -20,7 +20,8 @@ class TriviaViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     fun startGame() {
-        uiState = engine.startGame(uiState)
+        val requested = engine.requestStart(uiState)
+        uiState = if (requested.startNotice != null) engine.confirmStart(requested) else requested
     }
 
     fun submitAnswer(answerIndex: Int) {
