@@ -1,6 +1,6 @@
 # Magic Kingdom Trivia
 
-Magic Kingdom Trivia is a native, offline Android TV game built for the Nvidia Shield remote. It includes 104 locally stored questions, configurable rounds, timers, immediate answer feedback, persistent settings and statistics, and a television-first Jetpack Compose interface.
+Magic Kingdom Trivia is a native, offline Android TV game built for the Nvidia Shield remote. It includes 2,600 locally stored questions (2,500 from the validated production question bank plus 100 retained original seed questions), configurable rounds, timers, immediate answer feedback, persistent settings and statistics, and a television-first Jetpack Compose interface.
 
 Read [PROJECT.md](PROJECT.md) before making changes. It is the long-term source of truth for architecture, behavior, standards, and known limitations.
 
@@ -107,13 +107,13 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 
 Approve the debugging prompt on the television. Launch **Magic Kingdom Trivia** from the Android TV apps screen.
 
-## Update Questions Only
+## Questions and Packs
 
-Edit `app/src/main/assets/questions/core_questions.json`. Every entry must have:
+The bundled pack `app/src/main/assets/questions/core_questions.json` is a single master JSON file (`{ "packId": ..., "questions": [ ... ] }`) with 2,600 questions. Each entry uses this eight-field schema:
 
 ```json
 {
-  "id": "animation_001",
+  "id": "animation_easy_001",
   "question": "Question text",
   "answers": ["Answer A", "Answer B", "Answer C", "Answer D"],
   "correctAnswerIndex": 0,
@@ -126,11 +126,30 @@ Edit `app/src/main/assets/questions/core_questions.json`. Every entry must have:
 
 IDs must be stable and unique. Answers must be four nonblank, distinct strings. `correctAnswerIndex` must be 0 through 3, and difficulty must be `Easy`, `Medium`, or `Hard`. Categories are derived from valid JSON entries, so a new category requires no Kotlin change. Invalid entries are skipped and logged instead of crashing the app.
 
-After editing questions, run:
+### Regenerating the pack (recommended)
+
+The 2,500 production questions live in the standalone repository `../magic-kingdom-trivia-question-bank`. The master pack is assembled from that bank plus `tools/original_seed_questions.json` (the 100 retained seed questions) by:
+
+```bash
+python3 tools/build_question_pack.py            # rebuild app/src/main/assets/questions/core_questions.json
+python3 tools/build_question_pack.py --check    # CI check: fail if the committed asset is stale
+```
+
+Set `MK_QUESTION_BANK` or pass `--bank <path>` if the standalone bank is not the sibling directory. To add or replace production questions, edit the standalone bank and regenerate. The bank's `subtopic` field is intentionally dropped during conversion because the app does not consume it.
+
+### Adding a new question pack
+
+To ship an additional bundled pack, place its JSON alongside `core_questions.json` and construct the corresponding `AssetQuestionRepository(context, assetName = "questions/<pack>.json")`. Because categories are data-driven, no Kotlin change is required for new categories within a pack.
+
+### Validating
+
+After editing questions or regenerating the pack, run:
 
 ```bash
 ./gradlew test assembleDebug
 ```
+
+`ProductionQuestionBankTest` validates the real bundled asset (counts, category and difficulty totals, unique IDs, no duplicate prompts, four distinct answers, valid indices) as part of `./gradlew test`.
 
 ## Change the Name or Artwork
 

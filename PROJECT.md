@@ -77,13 +77,18 @@ Navigation is intentionally lightweight rather than using Navigation Compose. `T
 
 ## Storage and schema
 
-The bundled pack is `app/src/main/assets/questions/core_questions.json`. It currently contains 104 original questions: 13 in each of eight categories. Easy has 40 questions, Medium has 32, and Hard has 32.
+The bundled pack is `app/src/main/assets/questions/core_questions.json`, a single master JSON file shaped `{ "packId": ..., "questions": [ ... ] }`. It contains **2,600 questions**:
 
-Each entry uses this schema:
+- **2,500 production questions** imported from the standalone validated question bank (see *Standalone question bank* below). Their totals are: Disney Animation 500, Pixar 350, Disney Parks 350, Marvel 300, and Disney Princesses, Live Action Disney, Disney Songs, and Star Wars 250 each; by difficulty, Easy 865, Medium 895, Hard 740. IDs follow `<prefix>_<difficulty>_<NNN>` (for example `animation_easy_001`).
+- **100 retained original seed questions** carried over from the initial build. Four of the original 104 seeds were exact duplicates of the production bank and were dropped; the remaining 100 (IDs like `animation_001`) are kept because they are not duplicates.
+
+Combined difficulty totals are Easy 903, Medium 927, Hard 770. Category totals include the retained seeds (roughly 12–13 per category on top of the production totals above).
+
+Each entry uses this eight-field schema:
 
 ```json
 {
-  "id": "animation_001",
+  "id": "animation_easy_001",
   "question": "What kind of animal is Pascal in Tangled?",
   "answers": ["Chameleon", "Frog", "Gecko", "Iguana"],
   "correctAnswerIndex": 0,
@@ -94,7 +99,9 @@ Each entry uses this schema:
 }
 ```
 
-The required categories currently present are:
+The standalone bank additionally carries a `subtopic` field. It is intentionally omitted from the app pack: no screen or engine logic consumes it, and adding an unused model field would add complexity without a demonstrated need. The standalone bank remains the system of record for subtopics, so support can be added later without data loss. `QuestionJsonParser` ignores unknown keys, so a `subtopic` field would parse harmlessly if ever reintroduced.
+
+The categories present are:
 
 - Disney Animation.
 - Pixar.
@@ -126,7 +133,22 @@ Malformed or invalid entries are skipped and logged with their entry index and r
 
 Question order can be randomized. Answer choices are converted to `TriviaChoice` objects and can be shuffled independently; correctness travels with the choice, so mapping remains valid after shuffling. A question ID cannot repeat within one game because selection starts from a unique filtered list.
 
-To add questions, edit only the JSON asset, retain stable IDs, run local tests, and build the debug APK. The repository abstraction supports future bundled or imported packs, but only the core asset pack is currently loaded.
+## Standalone question bank and regeneration
+
+The 2,500 production questions are authored and validated in a separate standalone repository at `../magic-kingdom-trivia-question-bank` (2,500 questions across 24 JSON files with a nine-field schema and its own Python validator). That repository is the source of truth for production content and is not modified by the app.
+
+The bundled `core_questions.json` is assembled from two sources by `tools/build_question_pack.py`:
+
+1. the standalone bank (2,500 questions, `subtopic` dropped during conversion), and
+2. `tools/original_seed_questions.json` (the original 104 seed questions; exact duplicates of the bank are dropped automatically).
+
+Regenerate the pack with `python3 tools/build_question_pack.py` (set `MK_QUESTION_BANK` or pass `--bank <path>` if the bank is not the sibling directory). Use `--check` in CI to fail when the committed asset is stale.
+
+To add or replace questions, prefer editing the standalone bank (or `tools/original_seed_questions.json` for seeds) and regenerating. Editing `core_questions.json` directly is still supported; keep IDs stable and run the tests. The repository abstraction supports future bundled or imported packs, but only this core asset pack is currently loaded.
+
+## Automated pack validation
+
+`ProductionQuestionBankTest` (a local JVM unit test) loads the real bundled asset, parses it with `QuestionJsonParser`, and asserts hard invariants during `./gradlew test` and CI: zero parser validation errors, exactly 2,600 questions (2,500 production + 100 retained seeds), exact production category and difficulty totals, unique IDs, no normalized-duplicate prompts, four distinct answers per question, in-range correct indices, presence of all eight categories plus Mixed, and at least 50 questions in every category-and-difficulty slice so 10/20/30/50-question rounds are always fillable.
 
 # User Experience
 
@@ -371,7 +393,7 @@ The active implementation branch is `codex/initial-build`. Future names should u
 
 # Known Limitations
 
-- The 104 questions provide only 13 questions in each specific category; 20/30/50-question category rounds therefore show a shortage notice and use all eligible questions. Mixed supports larger rounds.
+- The bundled pack holds 2,600 questions. Every category-and-difficulty slice has at least 50 production questions, so 10/20/30/50-question rounds are fillable in every category and difficulty, including Mixed. The shortage notice remains as a safety path but is not expected during normal play.
 - Only one bundled question pack is loaded; custom pack importing is not implemented.
 - Questions are validated at runtime rather than by a dedicated Gradle validation task.
 - Question content has not received independent editorial/fact-check review.

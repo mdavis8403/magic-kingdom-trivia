@@ -1,0 +1,1562 @@
+[
+  {
+    "id": "animation_001",
+    "question": "What kind of animal is Pascal in Tangled?",
+    "answers": [
+      "Chameleon",
+      "Frog",
+      "Gecko",
+      "Iguana"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Disney Animation",
+    "difficulty": "Easy",
+    "explanation": "Pascal is Rapunzel's loyal pet chameleon.",
+    "sourceTitle": "Tangled"
+  },
+  {
+    "id": "animation_002",
+    "question": "Who is Simba's father in The Lion King?",
+    "answers": [
+      "Scar",
+      "Mufasa",
+      "Simba",
+      "Rafiki"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Disney Animation",
+    "difficulty": "Easy",
+    "explanation": "Mufasa is Simba's father and the king of the Pride Lands.",
+    "sourceTitle": "The Lion King"
+  },
+  {
+    "id": "animation_003",
+    "question": "What is the name of Elsa's younger sister in Frozen?",
+    "answers": [
+      "Anna",
+      "Olaf",
+      "Iduna",
+      "Honeymaren"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Disney Animation",
+    "difficulty": "Easy",
+    "explanation": "Anna is Elsa's younger sister and closest friend.",
+    "sourceTitle": "Frozen"
+  },
+  {
+    "id": "animation_004",
+    "question": "What type of robot is Baymax designed to be?",
+    "answers": [
+      "Medical robot",
+      "Police robot",
+      "Space probe",
+      "Racing car"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Disney Animation",
+    "difficulty": "Easy",
+    "explanation": "Baymax is a personal healthcare companion built to help people.",
+    "sourceTitle": "Big Hero 6"
+  },
+  {
+    "id": "animation_005",
+    "question": "What allows Dumbo to fly?",
+    "answers": [
+      "His trunk",
+      "His ears",
+      "His tail",
+      "His hat"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Disney Animation",
+    "difficulty": "Easy",
+    "explanation": "Dumbo's unusually large ears let him soar through the air.",
+    "sourceTitle": "Dumbo"
+  },
+  {
+    "id": "animation_006",
+    "question": "What is the name of Mulan's small dragon companion?",
+    "answers": [
+      "Mushu",
+      "Cri-Kee",
+      "Khan",
+      "Shan Yu"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Disney Animation",
+    "difficulty": "Medium",
+    "explanation": "Mushu is the tiny dragon who helps Mulan on her journey.",
+    "sourceTitle": "Mulan"
+  },
+  {
+    "id": "animation_007",
+    "question": "What kind of animal is Officer Judy Hopps?",
+    "answers": [
+      "Fox",
+      "Rabbit",
+      "Otter",
+      "Sheep"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Disney Animation",
+    "difficulty": "Medium",
+    "explanation": "Judy Hopps is the first rabbit police officer in Zootopia.",
+    "sourceTitle": "Zootopia"
+  },
+  {
+    "id": "animation_008",
+    "question": "Whose heart does Moana return at the end of her voyage?",
+    "answers": [
+      "Te Fiti",
+      "Tamatoa",
+      "Maui",
+      "Tala"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Disney Animation",
+    "difficulty": "Medium",
+    "explanation": "Moana restores the heart of Te Fiti and heals the ocean.",
+    "sourceTitle": "Moana"
+  },
+  {
+    "id": "animation_009",
+    "question": "What is the name of Aladdin's monkey?",
+    "answers": [
+      "Rajah",
+      "Abu",
+      "Iago",
+      "Maximus"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Disney Animation",
+    "difficulty": "Medium",
+    "explanation": "Abu is Aladdin's clever and sometimes mischievous monkey friend.",
+    "sourceTitle": "Aladdin"
+  },
+  {
+    "id": "animation_010",
+    "question": "Who serves as Pinocchio's conscience?",
+    "answers": [
+      "Figaro",
+      "Jiminy Cricket",
+      "Geppetto",
+      "Cleo"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Disney Animation",
+    "difficulty": "Hard",
+    "explanation": "Jiminy Cricket is appointed to guide Pinocchio as his conscience.",
+    "sourceTitle": "Pinocchio"
+  },
+  {
+    "id": "animation_011",
+    "question": "What is Mirabel's father's name in Encanto?",
+    "answers": [
+      "Felix",
+      "Agustin",
+      "Bruno",
+      "Pedro"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Disney Animation",
+    "difficulty": "Hard",
+    "explanation": "Agustin Madrigal is the father of Mirabel, Isabela, and Luisa.",
+    "sourceTitle": "Encanto"
+  },
+  {
+    "id": "animation_012",
+    "question": "What animal is Emperor Kuzco transformed into?",
+    "answers": [
+      "Horse",
+      "Llama",
+      "Jaguar",
+      "Goat"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Disney Animation",
+    "difficulty": "Hard",
+    "explanation": "Yzma's potion transforms Kuzco into a llama.",
+    "sourceTitle": "The Emperor's New Groove"
+  },
+  {
+    "id": "animation_013",
+    "question": "What experiment number was given to Stitch?",
+    "answers": [
+      "626",
+      "101",
+      "42",
+      "808"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Disney Animation",
+    "difficulty": "Hard",
+    "explanation": "Stitch was created as Experiment 626 by Dr. Jumba Jookiba.",
+    "sourceTitle": "Lilo & Stitch"
+  },
+  {
+    "id": "pixar_001",
+    "question": "What kind of toy is Woody?",
+    "answers": [
+      "Cowboy doll",
+      "Space ranger",
+      "Toy dinosaur",
+      "Race car"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Pixar",
+    "difficulty": "Easy",
+    "explanation": "Woody is Andy's pull-string cowboy doll.",
+    "sourceTitle": "Toy Story"
+  },
+  {
+    "id": "pixar_002",
+    "question": "What kind of fish is Nemo?",
+    "answers": [
+      "Clownfish",
+      "Blue tang",
+      "Angelfish",
+      "Goldfish"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Pixar",
+    "difficulty": "Easy",
+    "explanation": "Nemo and his father Marlin are clownfish.",
+    "sourceTitle": "Finding Nemo"
+  },
+  {
+    "id": "pixar_003",
+    "question": "What lifts Carl's house into the sky in Up?",
+    "answers": [
+      "Kites",
+      "Balloons",
+      "Helicopters",
+      "Jet engines"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Pixar",
+    "difficulty": "Easy",
+    "explanation": "Thousands of colorful balloons carry Carl's house away.",
+    "sourceTitle": "Up"
+  },
+  {
+    "id": "pixar_004",
+    "question": "What is Remy's special talent in Ratatouille?",
+    "answers": [
+      "Cooking",
+      "Painting",
+      "Dancing",
+      "Singing"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Pixar",
+    "difficulty": "Easy",
+    "explanation": "Remy has an exceptional sense of taste and dreams of becoming a chef.",
+    "sourceTitle": "Ratatouille"
+  },
+  {
+    "id": "pixar_005",
+    "question": "Which emotion is represented by a glowing yellow character in Inside Out?",
+    "answers": [
+      "Sadness",
+      "Fear",
+      "Joy",
+      "Disgust"
+    ],
+    "correctAnswerIndex": 2,
+    "category": "Pixar",
+    "difficulty": "Easy",
+    "explanation": "Joy glows yellow and tries to keep Riley happy.",
+    "sourceTitle": "Inside Out"
+  },
+  {
+    "id": "pixar_006",
+    "question": "What is the name of the city where Sulley and Mike work?",
+    "answers": [
+      "Metroville",
+      "Monstropolis",
+      "Radiator Springs",
+      "Element City"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Pixar",
+    "difficulty": "Medium",
+    "explanation": "Monsters, Inc. supplies energy to the city of Monstropolis.",
+    "sourceTitle": "Monsters, Inc."
+  },
+  {
+    "id": "pixar_007",
+    "question": "What racing number is Lightning McQueen?",
+    "answers": [
+      "51",
+      "86",
+      "95",
+      "43"
+    ],
+    "correctAnswerIndex": 2,
+    "category": "Pixar",
+    "difficulty": "Medium",
+    "explanation": "Lightning McQueen races with the number 95.",
+    "sourceTitle": "Cars"
+  },
+  {
+    "id": "pixar_008",
+    "question": "Where does WALL-E place the small plant he discovers?",
+    "answers": [
+      "A glass jar",
+      "An old boot",
+      "A lunch box",
+      "A metal cup"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Pixar",
+    "difficulty": "Medium",
+    "explanation": "WALL-E carefully protects the plant in an old boot.",
+    "sourceTitle": "WALL-E"
+  },
+  {
+    "id": "pixar_009",
+    "question": "Which instrument does Miguel love to play?",
+    "answers": [
+      "Trumpet",
+      "Violin",
+      "Guitar",
+      "Piano"
+    ],
+    "correctAnswerIndex": 2,
+    "category": "Pixar",
+    "difficulty": "Medium",
+    "explanation": "Miguel dreams of becoming a guitarist like Ernesto de la Cruz.",
+    "sourceTitle": "Coco"
+  },
+  {
+    "id": "pixar_010",
+    "question": "Which skill is Princess Merida especially known for?",
+    "answers": [
+      "Archery",
+      "Fencing",
+      "Sailing",
+      "Painting"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Pixar",
+    "difficulty": "Hard",
+    "explanation": "Merida is an expert archer who competes for her own hand.",
+    "sourceTitle": "Brave"
+  },
+  {
+    "id": "pixar_011",
+    "question": "Who designs the superhero family's suits in The Incredibles?",
+    "answers": [
+      "Mirage",
+      "Edna Mode",
+      "Evelyn Deavor",
+      "Voyd"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Pixar",
+    "difficulty": "Hard",
+    "explanation": "Edna Mode creates stylish suits with practical superhero features.",
+    "sourceTitle": "The Incredibles"
+  },
+  {
+    "id": "pixar_012",
+    "question": "What instrument does Joe Gardner play professionally?",
+    "answers": [
+      "Saxophone",
+      "Piano",
+      "Drums",
+      "Bass"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Pixar",
+    "difficulty": "Hard",
+    "explanation": "Joe is a jazz pianist and middle-school music teacher.",
+    "sourceTitle": "Soul"
+  },
+  {
+    "id": "pixar_013",
+    "question": "What kind of insect is Flik?",
+    "answers": [
+      "Beetle",
+      "Ant",
+      "Grasshopper",
+      "Ladybug"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Pixar",
+    "difficulty": "Hard",
+    "explanation": "Flik is an inventive ant who tries to help his colony.",
+    "sourceTitle": "A Bug's Life"
+  },
+  {
+    "id": "princess_001",
+    "question": "What does Cinderella leave behind at the royal ball?",
+    "answers": [
+      "A glass slipper",
+      "A silver necklace",
+      "A blue ribbon",
+      "A golden crown"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Disney Princesses",
+    "difficulty": "Easy",
+    "explanation": "Cinderella loses one glass slipper while rushing home.",
+    "sourceTitle": "Cinderella"
+  },
+  {
+    "id": "princess_002",
+    "question": "What does Belle especially love to do?",
+    "answers": [
+      "Read books",
+      "Bake cakes",
+      "Paint portraits",
+      "Play chess"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Disney Princesses",
+    "difficulty": "Easy",
+    "explanation": "Belle is an eager reader who dreams of adventures beyond her village.",
+    "sourceTitle": "Beauty and the Beast"
+  },
+  {
+    "id": "princess_003",
+    "question": "What kind of creature is Ariel at the beginning of her story?",
+    "answers": [
+      "Fairy",
+      "Mermaid",
+      "Human princess",
+      "Sea witch"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Disney Princesses",
+    "difficulty": "Easy",
+    "explanation": "Ariel is a mermaid and the youngest daughter of King Triton.",
+    "sourceTitle": "The Little Mermaid"
+  },
+  {
+    "id": "princess_004",
+    "question": "What is the name of Jasmine's tiger?",
+    "answers": [
+      "Abu",
+      "Rajah",
+      "Iago",
+      "Khan"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Disney Princesses",
+    "difficulty": "Easy",
+    "explanation": "Rajah is Princess Jasmine's loyal tiger companion.",
+    "sourceTitle": "Aladdin"
+  },
+  {
+    "id": "princess_005",
+    "question": "How many dwarfs share their cottage with Snow White?",
+    "answers": [
+      "Five",
+      "Six",
+      "Seven",
+      "Eight"
+    ],
+    "correctAnswerIndex": 2,
+    "category": "Disney Princesses",
+    "difficulty": "Easy",
+    "explanation": "Snow White stays with seven dwarfs in their forest cottage.",
+    "sourceTitle": "Snow White and the Seven Dwarfs"
+  },
+  {
+    "id": "princess_006",
+    "question": "Which name does Princess Aurora use while living in the forest?",
+    "answers": [
+      "Briar Rose",
+      "Rose Red",
+      "Ella",
+      "Giselle"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Disney Princesses",
+    "difficulty": "Medium",
+    "explanation": "The three fairies raise Aurora under the name Briar Rose.",
+    "sourceTitle": "Sleeping Beauty"
+  },
+  {
+    "id": "princess_007",
+    "question": "What is Tiana saving money to open?",
+    "answers": [
+      "A theater",
+      "A restaurant",
+      "A hotel",
+      "A bakery school"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Disney Princesses",
+    "difficulty": "Medium",
+    "explanation": "Tiana works tirelessly toward opening her own restaurant.",
+    "sourceTitle": "The Princess and the Frog"
+  },
+  {
+    "id": "princess_008",
+    "question": "What magical power does Rapunzel's hair have?",
+    "answers": [
+      "It controls weather",
+      "It heals",
+      "It freezes water",
+      "It grants flight"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Disney Princesses",
+    "difficulty": "Medium",
+    "explanation": "Rapunzel's glowing hair can heal injuries and restore youth.",
+    "sourceTitle": "Tangled"
+  },
+  {
+    "id": "princess_009",
+    "question": "What is the name of Pocahontas's raccoon friend?",
+    "answers": [
+      "Flit",
+      "Meeko",
+      "Percy",
+      "Nakoma"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Disney Princesses",
+    "difficulty": "Medium",
+    "explanation": "Meeko is the curious raccoon who often searches for snacks.",
+    "sourceTitle": "Pocahontas"
+  },
+  {
+    "id": "princess_010",
+    "question": "What is the name of Merida's horse?",
+    "answers": [
+      "Angus",
+      "Maximus",
+      "Philippe",
+      "Khan"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Disney Princesses",
+    "difficulty": "Hard",
+    "explanation": "Angus is Merida's large black Clydesdale horse.",
+    "sourceTitle": "Brave"
+  },
+  {
+    "id": "princess_011",
+    "question": "What is the name of Mulan's father?",
+    "answers": [
+      "Li Shang",
+      "Fa Zhou",
+      "Chi-Fu",
+      "Yao"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Disney Princesses",
+    "difficulty": "Hard",
+    "explanation": "Mulan takes the place of her injured father, Fa Zhou, in the army.",
+    "sourceTitle": "Mulan"
+  },
+  {
+    "id": "princess_012",
+    "question": "What is the name of Moana's home island?",
+    "answers": [
+      "Motunui",
+      "Te Fiti",
+      "Lalotai",
+      "Kakamora"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Disney Princesses",
+    "difficulty": "Hard",
+    "explanation": "Moana is the daughter of the chief of Motunui.",
+    "sourceTitle": "Moana"
+  },
+  {
+    "id": "princess_013",
+    "question": "What object holds the Beast's enchanted deadline?",
+    "answers": [
+      "A mirror",
+      "A rose",
+      "A clock",
+      "A candle"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Disney Princesses",
+    "difficulty": "Hard",
+    "explanation": "The Beast must learn to love before the enchanted rose loses its final petal.",
+    "sourceTitle": "Beauty and the Beast"
+  },
+  {
+    "id": "live_action_001",
+    "question": "What is Mary Poppins hired to do?",
+    "answers": [
+      "Teach music",
+      "Care for children",
+      "Run a bank",
+      "Sell umbrellas"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Live Action Disney",
+    "difficulty": "Easy",
+    "explanation": "Mary Poppins arrives as the new nanny for the Banks children.",
+    "sourceTitle": "Mary Poppins"
+  },
+  {
+    "id": "live_action_002",
+    "question": "What is the name of Captain Jack Sparrow's famous ship?",
+    "answers": [
+      "The Black Pearl",
+      "The Flying Dutchman",
+      "The Interceptor",
+      "The Empress"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Live Action Disney",
+    "difficulty": "Easy",
+    "explanation": "Jack Sparrow repeatedly seeks command of the Black Pearl.",
+    "sourceTitle": "Pirates of the Caribbean"
+  },
+  {
+    "id": "live_action_003",
+    "question": "What is the digital world inside the computer system called in TRON?",
+    "answers": [
+      "The Grid",
+      "The Matrix",
+      "The Core",
+      "The Circuit"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Live Action Disney",
+    "difficulty": "Easy",
+    "explanation": "Programs and users compete inside the digital realm known as the Grid.",
+    "sourceTitle": "TRON"
+  },
+  {
+    "id": "live_action_004",
+    "question": "Who accidentally shrinks his children with an experimental machine?",
+    "answers": [
+      "Wayne Szalinski",
+      "Ben Gates",
+      "Jim Evers",
+      "Joe Kingman"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Live Action Disney",
+    "difficulty": "Easy",
+    "explanation": "Inventor Wayne Szalinski's shrinking machine reduces the children to tiny size.",
+    "sourceTitle": "Honey, I Shrunk the Kids"
+  },
+  {
+    "id": "live_action_005",
+    "question": "Where is the treasure map hidden in National Treasure?",
+    "answers": [
+      "Inside the Liberty Bell",
+      "On the back of the Declaration of Independence",
+      "Under Mount Rushmore",
+      "In the White House library"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Live Action Disney",
+    "difficulty": "Easy",
+    "explanation": "Ben Gates discovers clues on the back of the Declaration of Independence.",
+    "sourceTitle": "National Treasure"
+  },
+  {
+    "id": "live_action_006",
+    "question": "What is the family name of the three witches in Hocus Pocus?",
+    "answers": [
+      "Sanderson",
+      "Tremaine",
+      "Pevensie",
+      "Halliwell"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Live Action Disney",
+    "difficulty": "Medium",
+    "explanation": "Winifred, Mary, and Sarah are the Sanderson sisters.",
+    "sourceTitle": "Hocus Pocus"
+  },
+  {
+    "id": "live_action_007",
+    "question": "From which animated kingdom does Giselle arrive in New York City?",
+    "answers": [
+      "Arendelle",
+      "Andalasia",
+      "Genovia",
+      "Agrabah"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Live Action Disney",
+    "difficulty": "Medium",
+    "explanation": "Giselle is sent from the fairy-tale kingdom of Andalasia to Manhattan.",
+    "sourceTitle": "Enchanted"
+  },
+  {
+    "id": "live_action_008",
+    "question": "What is the first name of the skipper played by Dwayne Johnson in Jungle Cruise?",
+    "answers": [
+      "Frank",
+      "Nilo",
+      "Jack",
+      "MacGregor"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Live Action Disney",
+    "difficulty": "Medium",
+    "explanation": "Frank Wolff captains the riverboat La Quila.",
+    "sourceTitle": "Jungle Cruise"
+  },
+  {
+    "id": "live_action_009",
+    "question": "Which career does Estella pursue in Cruella?",
+    "answers": [
+      "Architecture",
+      "Fashion design",
+      "Journalism",
+      "Photography"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Live Action Disney",
+    "difficulty": "Medium",
+    "explanation": "Estella is a gifted designer determined to make her name in London fashion.",
+    "sourceTitle": "Cruella"
+  },
+  {
+    "id": "live_action_010",
+    "question": "What are the first names of the twins in The Parent Trap?",
+    "answers": [
+      "Hallie and Annie",
+      "Susan and Sharon",
+      "Mia and Lilly",
+      "Tess and Anna"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Live Action Disney",
+    "difficulty": "Hard",
+    "explanation": "Hallie Parker and Annie James discover they are twins at summer camp.",
+    "sourceTitle": "The Parent Trap"
+  },
+  {
+    "id": "live_action_011",
+    "question": "Which two family members switch bodies in Freaky Friday?",
+    "answers": [
+      "Two sisters",
+      "A mother and daughter",
+      "A father and son",
+      "Two cousins"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Live Action Disney",
+    "difficulty": "Hard",
+    "explanation": "Anna and her mother Tess wake up in each other's bodies.",
+    "sourceTitle": "Freaky Friday"
+  },
+  {
+    "id": "live_action_012",
+    "question": "What device gives the hero of The Rocketeer his powers?",
+    "answers": [
+      "A jetpack",
+      "A magic ring",
+      "A metal suit",
+      "A flying car"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Live Action Disney",
+    "difficulty": "Hard",
+    "explanation": "Pilot Cliff Secord discovers a rocket pack that lets him fly.",
+    "sourceTitle": "The Rocketeer"
+  },
+  {
+    "id": "live_action_013",
+    "question": "What is the name of the dragon in Pete's Dragon?",
+    "answers": [
+      "Elliott",
+      "Figment",
+      "Mushu",
+      "Nessie"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Live Action Disney",
+    "difficulty": "Hard",
+    "explanation": "Elliott is Pete's gentle, often invisible dragon friend.",
+    "sourceTitle": "Pete's Dragon"
+  },
+  {
+    "id": "parks_001",
+    "question": "In what year did Walt Disney World's Magic Kingdom open?",
+    "answers": [
+      "1955",
+      "1971",
+      "1982",
+      "1998"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Disney Parks",
+    "difficulty": "Easy",
+    "explanation": "Magic Kingdom opened on October 1, 1971.",
+    "sourceTitle": "Magic Kingdom"
+  },
+  {
+    "id": "parks_002",
+    "question": "In what year did Disneyland first open to guests?",
+    "answers": [
+      "1955",
+      "1966",
+      "1971",
+      "1983"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Disney Parks",
+    "difficulty": "Easy",
+    "explanation": "Disneyland opened in Anaheim in July 1955.",
+    "sourceTitle": "Disneyland"
+  },
+  {
+    "id": "parks_003",
+    "question": "Which attraction is housed inside EPCOT's large geodesic sphere?",
+    "answers": [
+      "Mission: SPACE",
+      "Spaceship Earth",
+      "Living with the Land",
+      "Test Track"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Disney Parks",
+    "difficulty": "Easy",
+    "explanation": "Spaceship Earth explores the history of human communication.",
+    "sourceTitle": "EPCOT"
+  },
+  {
+    "id": "parks_004",
+    "question": "What giant park icon stands at the center of Disney's Animal Kingdom?",
+    "answers": [
+      "Tree of Life",
+      "Cinderella Castle",
+      "Spaceship Earth",
+      "Sorcerer's Hat"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Disney Parks",
+    "difficulty": "Easy",
+    "explanation": "The Tree of Life features hundreds of carved animals.",
+    "sourceTitle": "Disney's Animal Kingdom"
+  },
+  {
+    "id": "parks_005",
+    "question": "At which Walt Disney World park is The Twilight Zone Tower of Terror located?",
+    "answers": [
+      "Magic Kingdom",
+      "EPCOT",
+      "Disney's Hollywood Studios",
+      "Disney's Animal Kingdom"
+    ],
+    "correctAnswerIndex": 2,
+    "category": "Disney Parks",
+    "difficulty": "Easy",
+    "explanation": "The haunted Hollywood Tower Hotel rises over Sunset Boulevard at Hollywood Studios.",
+    "sourceTitle": "Disney's Hollywood Studios"
+  },
+  {
+    "id": "parks_006",
+    "question": "Which fruit gives the classic Dole Whip its signature flavor?",
+    "answers": [
+      "Mango",
+      "Pineapple",
+      "Orange",
+      "Banana"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Disney Parks",
+    "difficulty": "Medium",
+    "explanation": "The best-known Dole Whip is a pineapple-flavored frozen treat.",
+    "sourceTitle": "Disney Parks Dining"
+  },
+  {
+    "id": "parks_007",
+    "question": "Which transportation system glides on a beam between Magic Kingdom and nearby resorts?",
+    "answers": [
+      "Skyliner",
+      "Monorail",
+      "PeopleMover",
+      "FriendShip boat"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Disney Parks",
+    "difficulty": "Medium",
+    "explanation": "The Walt Disney World Monorail serves Magic Kingdom and nearby resorts.",
+    "sourceTitle": "Walt Disney World Monorail"
+  },
+  {
+    "id": "parks_008",
+    "question": "How many happy haunts are said to live in the Haunted Mansion?",
+    "answers": [
+      "13",
+      "99",
+      "999",
+      "1,001"
+    ],
+    "correctAnswerIndex": 2,
+    "category": "Disney Parks",
+    "difficulty": "Medium",
+    "explanation": "The mansion famously claims room for one more among its 999 happy haunts.",
+    "sourceTitle": "Haunted Mansion"
+  },
+  {
+    "id": "parks_009",
+    "question": "What type of attraction is Space Mountain?",
+    "answers": [
+      "Indoor roller coaster",
+      "Boat ride",
+      "Drop tower",
+      "Motion simulator"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Disney Parks",
+    "difficulty": "Medium",
+    "explanation": "Space Mountain is an indoor roller coaster through a dark space setting.",
+    "sourceTitle": "Space Mountain"
+  },
+  {
+    "id": "parks_010",
+    "question": "What kind of vehicle carries guests through Pirates of the Caribbean?",
+    "answers": [
+      "Mine train",
+      "Boat",
+      "Flying carpet",
+      "Doom Buggy"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Disney Parks",
+    "difficulty": "Hard",
+    "explanation": "Guests board boats for the voyage through pirate scenes.",
+    "sourceTitle": "Pirates of the Caribbean"
+  },
+  {
+    "id": "parks_011",
+    "question": "Which castle is the icon of Magic Kingdom in Florida?",
+    "answers": [
+      "Sleeping Beauty Castle",
+      "Cinderella Castle",
+      "Beast's Castle",
+      "Castle DunBroch"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Disney Parks",
+    "difficulty": "Hard",
+    "explanation": "Cinderella Castle stands at the end of Main Street, U.S.A.",
+    "sourceTitle": "Magic Kingdom"
+  },
+  {
+    "id": "parks_012",
+    "question": "Which Disneyland mountain attraction was inspired by the real Matterhorn?",
+    "answers": [
+      "Space Mountain",
+      "Matterhorn Bobsleds",
+      "Big Thunder Mountain Railroad",
+      "Splash Mountain"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Disney Parks",
+    "difficulty": "Hard",
+    "explanation": "Matterhorn Bobsleds opened at Disneyland with a scale-inspired alpine mountain.",
+    "sourceTitle": "Disneyland"
+  },
+  {
+    "id": "parks_013",
+    "question": "Which Animal Kingdom attraction uses safari trucks to tour an African savanna?",
+    "answers": [
+      "Expedition Everest",
+      "Kilimanjaro Safaris",
+      "Dinosaur",
+      "Kali River Rapids"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Disney Parks",
+    "difficulty": "Hard",
+    "explanation": "Kilimanjaro Safaris carries guests through the Harambe Wildlife Reserve.",
+    "sourceTitle": "Disney's Animal Kingdom"
+  },
+  {
+    "id": "songs_001",
+    "question": "Which movie features the song Let It Go?",
+    "answers": [
+      "Frozen",
+      "Tangled",
+      "Moana",
+      "Encanto"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Disney Songs",
+    "difficulty": "Easy",
+    "explanation": "Elsa sings Let It Go after leaving Arendelle.",
+    "sourceTitle": "Frozen"
+  },
+  {
+    "id": "songs_002",
+    "question": "Which character performs Under the Sea?",
+    "answers": [
+      "Flounder",
+      "Sebastian",
+      "Scuttle",
+      "King Triton"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Disney Songs",
+    "difficulty": "Easy",
+    "explanation": "Sebastian sings about the joys of life beneath the waves.",
+    "sourceTitle": "The Little Mermaid"
+  },
+  {
+    "id": "songs_003",
+    "question": "Which movie introduced the phrase Hakuna Matata as a song?",
+    "answers": [
+      "The Jungle Book",
+      "The Lion King",
+      "Tarzan",
+      "Brother Bear"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Disney Songs",
+    "difficulty": "Easy",
+    "explanation": "Timon and Pumbaa teach Simba their worry-free philosophy in The Lion King.",
+    "sourceTitle": "The Lion King"
+  },
+  {
+    "id": "songs_004",
+    "question": "Which couple sings A Whole New World?",
+    "answers": [
+      "Belle and Beast",
+      "Aladdin and Jasmine",
+      "Ariel and Eric",
+      "Tiana and Naveen"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Disney Songs",
+    "difficulty": "Easy",
+    "explanation": "Aladdin and Jasmine sing while traveling on the magic carpet.",
+    "sourceTitle": "Aladdin"
+  },
+  {
+    "id": "songs_005",
+    "question": "Which character sings Part of Your World?",
+    "answers": [
+      "Ariel",
+      "Belle",
+      "Elsa",
+      "Pocahontas"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Disney Songs",
+    "difficulty": "Easy",
+    "explanation": "Ariel sings about her wish to experience life on land.",
+    "sourceTitle": "The Little Mermaid"
+  },
+  {
+    "id": "songs_006",
+    "question": "Who sings You're Welcome to Moana?",
+    "answers": [
+      "Maui",
+      "Chief Tui",
+      "Tamatoa",
+      "Heihei"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Disney Songs",
+    "difficulty": "Medium",
+    "explanation": "Maui boasts about his legendary deeds in You're Welcome.",
+    "sourceTitle": "Moana"
+  },
+  {
+    "id": "songs_007",
+    "question": "Which enchanted object leads Be Our Guest?",
+    "answers": [
+      "Cogsworth",
+      "Lumiere",
+      "Mrs. Potts",
+      "Wardrobe"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Disney Songs",
+    "difficulty": "Medium",
+    "explanation": "Lumiere welcomes Belle with the castle's grand dinner production.",
+    "sourceTitle": "Beauty and the Beast"
+  },
+  {
+    "id": "songs_008",
+    "question": "Which young character sings I Just Can't Wait to Be King?",
+    "answers": [
+      "Young Simba",
+      "Young Bambi",
+      "Mowgli",
+      "Kenai"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Disney Songs",
+    "difficulty": "Medium",
+    "explanation": "Young Simba imagines the freedom he expects as future king.",
+    "sourceTitle": "The Lion King"
+  },
+  {
+    "id": "songs_009",
+    "question": "Which movie features You've Got a Friend in Me?",
+    "answers": [
+      "Cars",
+      "Toy Story",
+      "Monsters, Inc.",
+      "Up"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Disney Songs",
+    "difficulty": "Medium",
+    "explanation": "You've Got a Friend in Me is the signature friendship song of Toy Story.",
+    "sourceTitle": "Toy Story"
+  },
+  {
+    "id": "songs_010",
+    "question": "Which family is at the center of We Don't Talk About Bruno?",
+    "answers": [
+      "The Madrigals",
+      "The Parrs",
+      "The Robinsons",
+      "The Darlings"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Disney Songs",
+    "difficulty": "Hard",
+    "explanation": "The Madrigal family shares conflicting stories about Bruno.",
+    "sourceTitle": "Encanto"
+  },
+  {
+    "id": "songs_011",
+    "question": "Which character sings The Bare Necessities with Mowgli?",
+    "answers": [
+      "Bagheera",
+      "Baloo",
+      "Shere Khan",
+      "Kaa"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Disney Songs",
+    "difficulty": "Hard",
+    "explanation": "Baloo teaches Mowgli to relax and enjoy life's bare necessities.",
+    "sourceTitle": "The Jungle Book"
+  },
+  {
+    "id": "songs_012",
+    "question": "Which song does Moana sing about the horizon calling her?",
+    "answers": [
+      "How Far I'll Go",
+      "Into the Unknown",
+      "Almost There",
+      "Reflection"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Disney Songs",
+    "difficulty": "Hard",
+    "explanation": "How Far I'll Go expresses Moana's pull toward the ocean beyond the reef.",
+    "sourceTitle": "Moana"
+  },
+  {
+    "id": "songs_013",
+    "question": "Which song opens The Lion King as animals gather at Pride Rock?",
+    "answers": [
+      "Be Prepared",
+      "Circle of Life",
+      "He Lives in You",
+      "Can You Feel the Love Tonight"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Disney Songs",
+    "difficulty": "Hard",
+    "explanation": "Circle of Life accompanies the presentation of baby Simba.",
+    "sourceTitle": "The Lion King"
+  },
+  {
+    "id": "marvel_001",
+    "question": "What is Captain America's shield primarily made from?",
+    "answers": [
+      "Vibranium",
+      "Adamantium",
+      "Titanium",
+      "Steel"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Marvel",
+    "difficulty": "Easy",
+    "explanation": "Captain America's nearly indestructible shield is made from vibranium.",
+    "sourceTitle": "Captain America"
+  },
+  {
+    "id": "marvel_002",
+    "question": "What is the name of Thor's hammer?",
+    "answers": [
+      "Stormbreaker",
+      "Mjolnir",
+      "Gungnir",
+      "Hofund"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Marvel",
+    "difficulty": "Easy",
+    "explanation": "Mjolnir is the enchanted hammer traditionally wielded by Thor.",
+    "sourceTitle": "Thor"
+  },
+  {
+    "id": "marvel_003",
+    "question": "What is Iron Man's real name?",
+    "answers": [
+      "Bruce Banner",
+      "Tony Stark",
+      "Steve Rogers",
+      "Stephen Strange"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Marvel",
+    "difficulty": "Easy",
+    "explanation": "Inventor Tony Stark builds and wears the Iron Man armor.",
+    "sourceTitle": "Iron Man"
+  },
+  {
+    "id": "marvel_004",
+    "question": "Which hero protects the nation of Wakanda?",
+    "answers": [
+      "Black Panther",
+      "Falcon",
+      "War Machine",
+      "Moon Knight"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Marvel",
+    "difficulty": "Easy",
+    "explanation": "The Black Panther is Wakanda's protector and ceremonial leader.",
+    "sourceTitle": "Black Panther"
+  },
+  {
+    "id": "marvel_005",
+    "question": "What is the Hulk's human name?",
+    "answers": [
+      "Bruce Banner",
+      "Clint Barton",
+      "Scott Lang",
+      "Bucky Barnes"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Marvel",
+    "difficulty": "Easy",
+    "explanation": "Scientist Bruce Banner transforms into the Hulk.",
+    "sourceTitle": "The Avengers"
+  },
+  {
+    "id": "marvel_006",
+    "question": "What is Spider-Man's civilian name?",
+    "answers": [
+      "Peter Parker",
+      "Matt Murdock",
+      "Sam Wilson",
+      "Marc Spector"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Marvel",
+    "difficulty": "Medium",
+    "explanation": "Peter Parker balances everyday life with being Spider-Man.",
+    "sourceTitle": "Spider-Man"
+  },
+  {
+    "id": "marvel_007",
+    "question": "What phrase does Groot say most often?",
+    "answers": [
+      "We are Groot",
+      "I am Groot",
+      "Groot smash",
+      "Guard the galaxy"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Marvel",
+    "difficulty": "Medium",
+    "explanation": "Groot communicates almost entirely with the phrase I am Groot.",
+    "sourceTitle": "Guardians of the Galaxy"
+  },
+  {
+    "id": "marvel_008",
+    "question": "Which object does Doctor Strange wear around his neck in his first film?",
+    "answers": [
+      "Eye of Agamotto",
+      "Tesseract",
+      "Darkhold",
+      "Ten Rings"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Marvel",
+    "difficulty": "Medium",
+    "explanation": "The Eye of Agamotto houses the Time Stone in Doctor Strange.",
+    "sourceTitle": "Doctor Strange"
+  },
+  {
+    "id": "marvel_009",
+    "question": "What particles allow Ant-Man to change size?",
+    "answers": [
+      "Gamma particles",
+      "Pym particles",
+      "Cosmic particles",
+      "Quantum crystals"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Marvel",
+    "difficulty": "Medium",
+    "explanation": "Hank Pym's particles power the Ant-Man suit's size changes.",
+    "sourceTitle": "Ant-Man"
+  },
+  {
+    "id": "marvel_010",
+    "question": "What is Black Widow's full name?",
+    "answers": [
+      "Natasha Romanoff",
+      "Wanda Maximoff",
+      "Yelena Belova",
+      "Carol Danvers"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Marvel",
+    "difficulty": "Hard",
+    "explanation": "Natasha Romanoff is the Avenger known as Black Widow.",
+    "sourceTitle": "Black Widow"
+  },
+  {
+    "id": "marvel_011",
+    "question": "Which weapon is Hawkeye best known for using?",
+    "answers": [
+      "Bow and arrows",
+      "Shield",
+      "Hammer",
+      "Spear"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Marvel",
+    "difficulty": "Hard",
+    "explanation": "Clint Barton is a master archer who uses specialized trick arrows.",
+    "sourceTitle": "Hawkeye"
+  },
+  {
+    "id": "marvel_012",
+    "question": "What is Captain Marvel's human name?",
+    "answers": [
+      "Carol Danvers",
+      "Maria Hill",
+      "Peggy Carter",
+      "Hope van Dyne"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Marvel",
+    "difficulty": "Hard",
+    "explanation": "Carol Danvers becomes the cosmic hero Captain Marvel.",
+    "sourceTitle": "Captain Marvel"
+  },
+  {
+    "id": "marvel_013",
+    "question": "Which New York building serves as the Avengers' first major headquarters?",
+    "answers": [
+      "Stark Tower",
+      "Daily Bugle",
+      "Sanctum Sanctorum",
+      "Baxter Building"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Marvel",
+    "difficulty": "Hard",
+    "explanation": "Stark Tower is converted into the Avengers' Manhattan headquarters.",
+    "sourceTitle": "The Avengers"
+  },
+  {
+    "id": "star_wars_001",
+    "question": "Who is revealed to be Luke Skywalker's father?",
+    "answers": [
+      "Obi-Wan Kenobi",
+      "Darth Vader",
+      "Emperor Palpatine",
+      "Yoda"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Star Wars",
+    "difficulty": "Easy",
+    "explanation": "Darth Vader reveals that he is Luke's father, Anakin Skywalker.",
+    "sourceTitle": "The Empire Strikes Back"
+  },
+  {
+    "id": "star_wars_002",
+    "question": "What is Princess Leia's home planet?",
+    "answers": [
+      "Alderaan",
+      "Naboo",
+      "Tatooine",
+      "Corellia"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Star Wars",
+    "difficulty": "Easy",
+    "explanation": "Leia was raised as a princess of Alderaan.",
+    "sourceTitle": "A New Hope"
+  },
+  {
+    "id": "star_wars_003",
+    "question": "What is the name of Han Solo's ship?",
+    "answers": [
+      "Ghost",
+      "Millennium Falcon",
+      "Razor Crest",
+      "Home One"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Star Wars",
+    "difficulty": "Easy",
+    "explanation": "Han Solo and Chewbacca pilot the Millennium Falcon.",
+    "sourceTitle": "A New Hope"
+  },
+  {
+    "id": "star_wars_004",
+    "question": "Which droid carries the Death Star plans to Luke Skywalker?",
+    "answers": [
+      "C-3PO",
+      "R2-D2",
+      "BB-8",
+      "K-2SO"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Star Wars",
+    "difficulty": "Easy",
+    "explanation": "R2-D2 carries Leia's message and the stolen battle-station plans.",
+    "sourceTitle": "A New Hope"
+  },
+  {
+    "id": "star_wars_005",
+    "question": "What species is Chewbacca?",
+    "answers": [
+      "Ewok",
+      "Wookiee",
+      "Gungan",
+      "Twi'lek"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Star Wars",
+    "difficulty": "Easy",
+    "explanation": "Chewbacca is a Wookiee from the planet Kashyyyk.",
+    "sourceTitle": "Star Wars"
+  },
+  {
+    "id": "star_wars_006",
+    "question": "What weapon is traditionally carried by a Jedi?",
+    "answers": [
+      "Blaster rifle",
+      "Lightsaber",
+      "Vibroblade",
+      "Bowcaster"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Star Wars",
+    "difficulty": "Medium",
+    "explanation": "The lightsaber is the signature weapon of Jedi Knights.",
+    "sourceTitle": "Star Wars"
+  },
+  {
+    "id": "star_wars_007",
+    "question": "Who protects Grogu during much of The Mandalorian?",
+    "answers": [
+      "Din Djarin",
+      "Boba Fett",
+      "Bo-Katan Kryze",
+      "Greef Karga"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Star Wars",
+    "difficulty": "Medium",
+    "explanation": "The Mandalorian bounty hunter Din Djarin becomes Grogu's guardian.",
+    "sourceTitle": "The Mandalorian"
+  },
+  {
+    "id": "star_wars_008",
+    "question": "Which droid has a rolling ball-shaped body?",
+    "answers": [
+      "R2-D2",
+      "BB-8",
+      "C-3PO",
+      "Chopper"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Star Wars",
+    "difficulty": "Medium",
+    "explanation": "BB-8 rolls on a spherical body while its head stays balanced above it.",
+    "sourceTitle": "The Force Awakens"
+  },
+  {
+    "id": "star_wars_009",
+    "question": "How many suns are visible from the surface of Tatooine?",
+    "answers": [
+      "One",
+      "Two",
+      "Three",
+      "Four"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Star Wars",
+    "difficulty": "Medium",
+    "explanation": "Tatooine orbits twin suns, creating its famous binary sunset.",
+    "sourceTitle": "A New Hope"
+  },
+  {
+    "id": "star_wars_010",
+    "question": "What name did Emperor Palpatine use as a Sith Lord?",
+    "answers": [
+      "Darth Maul",
+      "Darth Sidious",
+      "Darth Tyranus",
+      "Darth Plagueis"
+    ],
+    "correctAnswerIndex": 1,
+    "category": "Star Wars",
+    "difficulty": "Hard",
+    "explanation": "Palpatine secretly operates as the Sith Lord Darth Sidious.",
+    "sourceTitle": "Revenge of the Sith"
+  },
+  {
+    "id": "star_wars_011",
+    "question": "On which planet does Rey live as a scavenger?",
+    "answers": [
+      "Jakku",
+      "Jedha",
+      "Crait",
+      "Exegol"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Star Wars",
+    "difficulty": "Hard",
+    "explanation": "Rey survives by scavenging wrecked starships on Jakku.",
+    "sourceTitle": "The Force Awakens"
+  },
+  {
+    "id": "star_wars_012",
+    "question": "What species is Ahsoka Tano?",
+    "answers": [
+      "Togruta",
+      "Twi'lek",
+      "Mirialan",
+      "Zabrak"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Star Wars",
+    "difficulty": "Hard",
+    "explanation": "Ahsoka is a Togruta from the planet Shili.",
+    "sourceTitle": "Star Wars: The Clone Wars"
+  },
+  {
+    "id": "star_wars_013",
+    "question": "What is the Empire's moon-sized battle station called?",
+    "answers": [
+      "Death Star",
+      "Star Forge",
+      "Starkiller Base",
+      "Executor"
+    ],
+    "correctAnswerIndex": 0,
+    "category": "Star Wars",
+    "difficulty": "Hard",
+    "explanation": "The Death Star is built around a superlaser capable of destroying planets.",
+    "sourceTitle": "A New Hope"
+  }
+]
