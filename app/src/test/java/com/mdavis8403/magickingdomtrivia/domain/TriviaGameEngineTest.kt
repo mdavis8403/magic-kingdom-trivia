@@ -1,6 +1,10 @@
 package com.mdavis8403.magickingdomtrivia.domain
 
-import com.mdavis8403.magickingdomtrivia.data.TriviaRepository
+import com.mdavis8403.magickingdomtrivia.data.Difficulty
+import com.mdavis8403.magickingdomtrivia.data.InMemoryQuestionRepository
+import com.mdavis8403.magickingdomtrivia.data.QuestionCatalog
+import com.mdavis8403.magickingdomtrivia.data.TriviaCategory
+import com.mdavis8403.magickingdomtrivia.data.TriviaQuestion
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
@@ -9,34 +13,41 @@ import org.junit.Test
 import kotlin.random.Random
 
 class TriviaGameEngineTest {
-    private val engine = TriviaGameEngine(
-        repository = TriviaRepository(),
-        roundSize = 3,
-        random = Random(1),
+    private val rides = TriviaCategory("rides", "Rides", "Ride questions", 0xFF00AA00)
+    private val animation = TriviaCategory("animation", "Animation", "Animation questions", 0xFF0000AA)
+    private val repository = InMemoryQuestionRepository(
+        QuestionCatalog(
+            packId = "test",
+            questions = listOf(
+                question("rides_1", "Rides", Difficulty.EASY),
+                question("rides_2", "Rides", Difficulty.MEDIUM),
+                question("rides_3", "Rides", Difficulty.HARD),
+                question("animation_1", "Animation", Difficulty.EASY),
+            ),
+            categories = listOf(rides, animation),
+            validationErrors = emptyList(),
+        ),
     )
+    private val engine = TriviaGameEngine(repository, roundSize = 3, random = Random(1))
 
     @Test
     fun initialState_selectsFirstCategory() {
         val state = engine.initialState()
 
-        assertEquals("lands", state.selectedCategoryId)
-        assertEquals(5, state.categories.size)
+        assertEquals("rides", state.selectedCategoryId)
+        assertEquals(2, state.categories.size)
         assertNull(state.session)
     }
 
     @Test
     fun startGame_createsRoundForSelectedCategory() {
-        val state = engine.startGame(
-            engine.selectCategory(
-                state = engine.initialState(),
-                categoryId = "rides",
-            ),
-        )
+        val state = engine.startGame(engine.initialState())
 
         val session = requireNotNull(state.session)
         assertEquals("rides", session.category.id)
         assertEquals(3, session.questions.size)
-        assertTrue(session.questions.all { it.categoryId == "rides" })
+        assertTrue(session.questions.all { it.category == "Rides" })
+        assertEquals(3, session.questions.map { it.id }.distinct().size)
     }
 
     @Test
@@ -45,13 +56,11 @@ class TriviaGameEngineTest {
 
         repeat(3) { roundIndex ->
             val session = requireNotNull(state.session)
-            val correctIndex = session.correctAnswerIndex
-            state = engine.submitAnswer(state, correctIndex)
+            state = engine.submitAnswer(state, session.correctAnswerIndex)
 
             val answered = requireNotNull(state.session)
             assertNotNull(answered.selectedAnswerIndex)
             assertEquals(roundIndex + 1, answered.score)
-
             state = engine.next(state)
         }
 
@@ -65,17 +74,27 @@ class TriviaGameEngineTest {
     @Test
     fun wrongAnswer_breaksStreak() {
         var state = engine.startGame(engine.initialState())
-        val firstCorrectIndex = requireNotNull(state.session).correctAnswerIndex
-        state = engine.submitAnswer(state, firstCorrectIndex)
+        state = engine.submitAnswer(state, requireNotNull(state.session).correctAnswerIndex)
         state = engine.next(state)
 
-        val secondSession = requireNotNull(state.session)
-        val wrongIndex = secondSession.currentQuestion.choices.indices.first { it != secondSession.correctAnswerIndex }
+        val session = requireNotNull(state.session)
+        val wrongIndex = session.currentQuestion.choices.indices.first { it != session.correctAnswerIndex }
         state = engine.submitAnswer(state, wrongIndex)
 
-        val updatedSession = requireNotNull(state.session)
-        assertEquals(1, updatedSession.score)
-        assertEquals(0, updatedSession.currentStreak)
-        assertEquals(1, updatedSession.bestStreak)
+        val updated = requireNotNull(state.session)
+        assertEquals(1, updated.score)
+        assertEquals(0, updated.currentStreak)
+        assertEquals(1, updated.bestStreak)
     }
+
+    private fun question(id: String, category: String, difficulty: Difficulty) = TriviaQuestion(
+        id = id,
+        prompt = "Question $id?",
+        answers = listOf("Correct", "Wrong one", "Wrong two", "Wrong three"),
+        correctAnswerIndex = 0,
+        category = category,
+        difficulty = difficulty,
+        explanation = "Explanation",
+        sourceTitle = "Source",
+    )
 }

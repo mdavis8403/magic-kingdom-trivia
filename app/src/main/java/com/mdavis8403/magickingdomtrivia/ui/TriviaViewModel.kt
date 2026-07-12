@@ -1,16 +1,17 @@
 package com.mdavis8403.magickingdomtrivia.ui
 
+import android.app.Application
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.ViewModel
-import com.mdavis8403.magickingdomtrivia.data.TriviaRepository
+import androidx.lifecycle.AndroidViewModel
+import com.mdavis8403.magickingdomtrivia.data.AssetQuestionRepository
 import com.mdavis8403.magickingdomtrivia.domain.TriviaGameEngine
 import com.mdavis8403.magickingdomtrivia.domain.TriviaGameState
 
-class TriviaViewModel(
-    private val engine: TriviaGameEngine = TriviaGameEngine(TriviaRepository()),
-) : ViewModel() {
+class TriviaViewModel(application: Application) : AndroidViewModel(application) {
+    private val engine = TriviaGameEngine(AssetQuestionRepository(application))
+
     var uiState: TriviaGameState by mutableStateOf(engine.initialState())
         private set
 
@@ -38,4 +39,3 @@ class TriviaViewModel(
         uiState = engine.returnHome(uiState)
     }
 }
-

@@ -463,4 +463,5 @@ private fun difficultyLabel(difficulty: com.mdavis8403.magickingdomtrivia.data.D
         com.mdavis8403.magickingdomtrivia.data.Difficulty.EASY -> "Warm-up"
         com.mdavis8403.magickingdomtrivia.data.Difficulty.MEDIUM -> "Challenge"
         com.mdavis8403.magickingdomtrivia.data.Difficulty.HARD -> "Deep cut"
+        com.mdavis8403.magickingdomtrivia.data.Difficulty.MIXED -> "Mixed"
     }
