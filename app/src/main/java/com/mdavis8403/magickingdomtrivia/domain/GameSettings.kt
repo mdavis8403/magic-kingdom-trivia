@@ -2,7 +2,9 @@ package com.mdavis8403.magickingdomtrivia.domain
 
 import com.mdavis8403.magickingdomtrivia.data.Difficulty
 import com.mdavis8403.magickingdomtrivia.data.QuestionRepository
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class GameSettings(
     val categoryId: String = QuestionRepository.MIXED_CATEGORY_ID,
     val difficulty: Difficulty = Difficulty.MIXED,

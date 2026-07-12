@@ -66,6 +66,8 @@ dependencies {
     implementation("androidx.activity:activity-compose:1.10.1")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.7")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:2.8.7")
+    implementation("androidx.datastore:datastore-preferences:1.2.1")
     implementation("androidx.tv:tv-foundation:1.0.0")
     implementation("androidx.tv:tv-material:1.1.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")

@@ -6,8 +6,10 @@ import com.mdavis8403.magickingdomtrivia.data.QuestionRepository
 import com.mdavis8403.magickingdomtrivia.data.TriviaCategory
 import com.mdavis8403.magickingdomtrivia.data.TriviaChoice
 import com.mdavis8403.magickingdomtrivia.data.TriviaQuestion
+import kotlinx.serialization.Serializable
 import kotlin.random.Random
 
+@Serializable
 data class AnsweredQuestion(
     val questionId: String,
     val selectedIndex: Int?,
@@ -17,6 +19,7 @@ data class AnsweredQuestion(
     val difficulty: Difficulty,
 )
 
+@Serializable
 data class TriviaSession(
     val category: TriviaCategory,
     val questions: List<PresentedQuestion>,
@@ -41,6 +44,7 @@ data class TriviaSession(
         get() = questions.size
 }
 
+@Serializable
 data class TriviaSummary(
     val category: TriviaCategory,
     val totalQuestions: Int,
@@ -56,11 +60,13 @@ data class TriviaSummary(
         get() = totalQuestions - correctAnswers
 }
 
+@Serializable
 data class StartNotice(
     val requestedCount: Int,
     val availableCount: Int,
 )
 
+@Serializable
 data class TriviaGameState(
     val categories: List<TriviaCategory>,
     val settings: GameSettings,
@@ -115,7 +121,10 @@ class TriviaGameEngine(
     fun selectDifficulty(state: TriviaGameState, difficulty: Difficulty): TriviaGameState =
         updateSettings(state, state.settings.copy(difficulty = difficulty))
 
-    fun requestStart(state: TriviaGameState): TriviaGameState {
+    fun requestStart(
+        state: TriviaGameState,
+        recentlyPlayedIds: Set<String> = emptySet(),
+    ): TriviaGameState {
         val eligibleCount = eligibleQuestions(state.settings).size
         if (eligibleCount == 0) {
             return state.copy(
@@ -129,10 +138,13 @@ class TriviaGameEngine(
                 errorMessage = null,
             )
         }
-        return startGame(state)
+        return startGame(state, recentlyPlayedIds)
     }
 
-    fun confirmStart(state: TriviaGameState): TriviaGameState = startGame(state.copy(startNotice = null))
+    fun confirmStart(
+        state: TriviaGameState,
+        recentlyPlayedIds: Set<String> = emptySet(),
+    ): TriviaGameState = startGame(state.copy(startNotice = null), recentlyPlayedIds)
 
     fun cancelStart(state: TriviaGameState): TriviaGameState = state.copy(startNotice = null)
 
