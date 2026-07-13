@@ -1,6 +1,6 @@
 # Magic Kingdom Trivia
 
-Magic Kingdom Trivia is a native, offline Android TV game built for the Nvidia Shield remote. It includes 2,600 locally stored questions (2,500 from the validated production question bank plus 100 retained original seed questions), configurable rounds, timers, immediate answer feedback, persistent settings and statistics, and a television-first Jetpack Compose interface.
+Magic Kingdom Trivia is a native, offline Android TV game built for the Nvidia Shield remote. It includes 5,100 locally stored questions (5,000 from the validated production question bank plus 100 retained original seed questions), configurable rounds, timers, immediate answer feedback, persistent settings and statistics, and a television-first Jetpack Compose interface.
 
 Read [PROJECT.md](PROJECT.md) before making changes. It is the long-term source of truth for architecture, behavior, standards, and known limitations.
 
@@ -109,7 +109,7 @@ Approve the debugging prompt on the television. Launch **Magic Kingdom Trivia** 
 
 ## Questions and Packs
 
-The bundled pack `app/src/main/assets/questions/core_questions.json` is a single master JSON file (`{ "packId": ..., "questions": [ ... ] }`) with 2,600 questions. Each entry uses this eight-field schema:
+The bundled pack `app/src/main/assets/questions/core_questions.json` is a single master JSON file (`{ "packId": ..., "questions": [ ... ] }`) with 5,100 questions. Each entry uses this eight-field schema:
 
 ```json
 {
@@ -128,7 +128,7 @@ IDs must be stable and unique. Answers must be four nonblank, distinct strings. 
 
 ### Regenerating the pack (recommended)
 
-The 2,500 production questions live in the standalone repository `../magic-kingdom-trivia-question-bank`. The master pack is assembled from that bank plus `tools/original_seed_questions.json` (the 100 retained seed questions) by:
+The 5,000 production questions live in the standalone repository `../magic-kingdom-trivia-question-bank`. The master pack is assembled from that bank plus `tools/original_seed_questions.json` (the 100 retained seed questions) by:
 
 ```bash
 python3 tools/build_question_pack.py            # rebuild app/src/main/assets/questions/core_questions.json
