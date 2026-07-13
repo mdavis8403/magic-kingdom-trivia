@@ -4,7 +4,7 @@ import android.media.AudioManager
 import android.media.ToneGenerator
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.animation.animateColorAsState
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -41,7 +41,11 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.SemanticsPropertyKey
+import androidx.compose.ui.semantics.SemanticsPropertyReceiver
+import androidx.compose.ui.semantics.disabled
 import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
@@ -50,8 +54,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.tv.material3.Button
+import androidx.tv.material3.Border
+import androidx.tv.material3.Glow
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.OutlinedButton
+import androidx.tv.material3.OutlinedButtonDefaults
 import androidx.tv.material3.Surface
 import androidx.tv.material3.SurfaceDefaults
 import androidx.tv.material3.Text
@@ -667,10 +674,9 @@ private fun QuestionScreen(
                 horizontalArrangement = Arrangement.spacedBy(18.dp),
             ) {
                 rowIndices.forEach { index ->
-                    AnswerButton(
+                    AnswerCard(
                         text = question.choices[index].text,
-                        index = index,
-                        session = session,
+                        status = answerCardStatus(index, session),
                         onClick = { onSubmit(index) },
                         modifier = Modifier
                             .weight(1f)
@@ -733,54 +739,198 @@ private fun HeaderPill(label: String, value: String) {
     }
 }
 
+internal enum class AnswerCardStatus {
+    IDLE,
+    SELECTED,
+    SELECTED_CORRECT,
+    SELECTED_INCORRECT,
+    REVEALED_CORRECT,
+    DISABLED,
+}
+
+internal data class AnswerCardStyle(
+    val containerColor: Color,
+    val textColor: Color,
+    val borderColor: Color,
+    val indicator: String?,
+)
+
+internal val AnswerCardStateKey = SemanticsPropertyKey<String>("AnswerCardState")
+internal val AnswerCardContainerColorKey = SemanticsPropertyKey<String>("AnswerCardContainerColor")
+internal val AnswerCardTextColorKey = SemanticsPropertyKey<String>("AnswerCardTextColor")
+internal val AnswerCardBorderColorKey = SemanticsPropertyKey<String>("AnswerCardBorderColor")
+
+private var SemanticsPropertyReceiver.answerCardState by AnswerCardStateKey
+private var SemanticsPropertyReceiver.answerCardContainerColor by AnswerCardContainerColorKey
+private var SemanticsPropertyReceiver.answerCardTextColor by AnswerCardTextColorKey
+private var SemanticsPropertyReceiver.answerCardBorderColor by AnswerCardBorderColorKey
+
+private val AnswerIdleContainer = Color(0xFF17263D)
+private val AnswerIdleText = Color(0xFFF4F7FC)
+private val AnswerIdleBorder = Color(0xFF617594)
+private val AnswerFocusedContainer = Color(0xFF214F73)
+private val AnswerFocusedText = Color(0xFFFFFFFF)
+private val AnswerSelectedContainer = Color(0xFF39375F)
+private val AnswerSelectedText = Color(0xFFFFF1C7)
+private val AnswerCorrectContainer = Color(0xFF174A3A)
+private val AnswerCorrectText = Color(0xFFE0FFF0)
+private val AnswerIncorrectContainer = Color(0xFF542936)
+private val AnswerIncorrectText = Color(0xFFFFE4E9)
+private val AnswerDisabledContainer = Color(0xFF111D2D)
+private val AnswerDisabledText = Color(0xFFB4C1D3)
+private val AnswerDisabledBorder = Color(0xFF3D506A)
+
+internal fun answerCardStyle(
+    status: AnswerCardStatus,
+    focused: Boolean,
+): AnswerCardStyle {
+    if (focused && (status == AnswerCardStatus.IDLE || status == AnswerCardStatus.SELECTED)) {
+        return AnswerCardStyle(
+            containerColor = AnswerFocusedContainer,
+            textColor = AnswerFocusedText,
+            borderColor = Gold,
+            indicator = if (status == AnswerCardStatus.SELECTED) "SELECTED" else null,
+        )
+    }
+
+    return when (status) {
+        AnswerCardStatus.IDLE -> AnswerCardStyle(
+            containerColor = AnswerIdleContainer,
+            textColor = AnswerIdleText,
+            borderColor = AnswerIdleBorder,
+            indicator = null,
+        )
+
+        AnswerCardStatus.SELECTED -> AnswerCardStyle(
+            containerColor = AnswerSelectedContainer,
+            textColor = AnswerSelectedText,
+            borderColor = Gold,
+            indicator = "SELECTED",
+        )
+
+        AnswerCardStatus.SELECTED_CORRECT -> AnswerCardStyle(
+            containerColor = AnswerCorrectContainer,
+            textColor = AnswerCorrectText,
+            borderColor = Mint,
+            indicator = "YOUR ANSWER - CORRECT",
+        )
+
+        AnswerCardStatus.SELECTED_INCORRECT -> AnswerCardStyle(
+            containerColor = AnswerIncorrectContainer,
+            textColor = AnswerIncorrectText,
+            borderColor = Rose,
+            indicator = "YOUR ANSWER - INCORRECT",
+        )
+
+        AnswerCardStatus.REVEALED_CORRECT -> AnswerCardStyle(
+            containerColor = AnswerCorrectContainer,
+            textColor = AnswerCorrectText,
+            borderColor = Mint,
+            indicator = "CORRECT ANSWER",
+        )
+
+        AnswerCardStatus.DISABLED -> AnswerCardStyle(
+            containerColor = AnswerDisabledContainer,
+            textColor = AnswerDisabledText,
+            borderColor = AnswerDisabledBorder,
+            indicator = null,
+        )
+    }
+}
+
+private fun answerCardStatus(index: Int, session: TriviaSession): AnswerCardStatus {
+    val isCorrect = index == session.correctAnswerIndex
+    val isSelected = index == session.selectedAnswerIndex
+    return when {
+        !session.answerRevealed && isSelected -> AnswerCardStatus.SELECTED
+        !session.answerRevealed -> AnswerCardStatus.IDLE
+        isCorrect && isSelected -> AnswerCardStatus.SELECTED_CORRECT
+        isSelected -> AnswerCardStatus.SELECTED_INCORRECT
+        isCorrect -> AnswerCardStatus.REVEALED_CORRECT
+        else -> AnswerCardStatus.DISABLED
+    }
+}
+
 @Composable
-private fun AnswerButton(
+internal fun AnswerCard(
     text: String,
-    index: Int,
-    session: TriviaSession,
+    status: AnswerCardStatus,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var focused by remember { mutableStateOf(false) }
-    val isCorrect = index == session.correctAnswerIndex
-    val isSelected = index == session.selectedAnswerIndex
-    val revealed = session.answerRevealed
-    val label = when {
-        revealed && isCorrect -> "Correct answer: $text"
-        revealed && isSelected -> "Incorrect choice: $text"
-        else -> text
-    }
-    val labelColor by animateColorAsState(
-        targetValue = when {
-            revealed && isCorrect -> Mint
-            revealed && isSelected -> Rose
-            else -> MaterialTheme.colorScheme.onSurface
-        },
-        label = "answer-color",
-    )
+    val enabled = status == AnswerCardStatus.IDLE || status == AnswerCardStatus.SELECTED
+    val style = answerCardStyle(status = status, focused = focused)
+    val shape = RoundedCornerShape(20.dp)
 
     OutlinedButton(
         onClick = onClick,
-        enabled = !revealed,
+        enabled = enabled,
+        colors = OutlinedButtonDefaults.colors(
+            containerColor = style.containerColor,
+            contentColor = style.textColor,
+            focusedContainerColor = AnswerFocusedContainer,
+            focusedContentColor = AnswerFocusedText,
+            pressedContainerColor = AnswerSelectedContainer,
+            pressedContentColor = AnswerSelectedText,
+            disabledContainerColor = style.containerColor,
+            disabledContentColor = style.textColor,
+        ),
+        border = OutlinedButtonDefaults.border(
+            border = Border(BorderStroke(2.dp, style.borderColor), shape = shape),
+            focusedBorder = Border(BorderStroke(4.dp, Gold), shape = shape),
+            pressedBorder = Border(BorderStroke(4.dp, Gold), shape = shape),
+            disabledBorder = Border(BorderStroke(2.dp, style.borderColor), shape = shape),
+            focusedDisabledBorder = Border(BorderStroke(3.dp, style.borderColor), shape = shape),
+        ),
+        glow = OutlinedButtonDefaults.glow(
+            glow = Glow.None,
+            focusedGlow = Glow(elevationColor = Gold.copy(alpha = 0.45f), elevation = 12.dp),
+            pressedGlow = Glow(elevationColor = Gold.copy(alpha = 0.3f), elevation = 8.dp),
+        ),
         modifier = modifier
             .heightIn(min = 92.dp)
             .onFocusChanged { focused = it.isFocused }
+            .semantics {
+                answerCardState = if (focused && status == AnswerCardStatus.IDLE) "FOCUSED" else status.name
+                answerCardContainerColor = style.containerColor.toHexString()
+                answerCardTextColor = style.textColor.toHexString()
+                answerCardBorderColor = style.borderColor.toHexString()
+                if (!enabled) disabled()
+            }
             .graphicsLayer {
-                val scale = if (focused) 1.035f else 1f
+                val scale = if (focused) 1.04f else 1f
                 scaleX = scale
                 scaleY = scale
             },
     ) {
-        Text(
-            text = label,
-            color = labelColor,
-            fontSize = 22.sp,
-            fontWeight = if (revealed && (isCorrect || isSelected)) FontWeight.Bold else FontWeight.Medium,
-            textAlign = TextAlign.Center,
+        Column(
             modifier = Modifier.fillMaxWidth(),
-        )
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(4.dp),
+        ) {
+            style.indicator?.let { indicator ->
+                Text(
+                    text = indicator,
+                    color = style.textColor,
+                    fontSize = 13.sp,
+                    fontWeight = FontWeight.ExtraBold,
+                    textAlign = TextAlign.Center,
+                )
+            }
+            Text(
+                text = text,
+                color = style.textColor,
+                fontSize = 22.sp,
+                fontWeight = if (style.indicator == null) FontWeight.Medium else FontWeight.Bold,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth(),
+            )
+        }
     }
 }
+
+private fun Color.toHexString(): String = "#%08X".format(toArgb())
 
 @Composable
 private fun ResultsScreen(
