@@ -154,6 +154,8 @@ To add or replace questions, prefer editing the standalone bank (or `tools/origi
 
 The interface uses a dark navy-to-plum gradient, jewel-tone gold/mint/rose accents, high contrast, large typography, generous spacing, large controls, subtle screen transitions, and 56 dp by 38 dp television-safe outer margins. Decorative artwork consists only of original geometry.
 
+Answer cards use an explicit state palette rather than inherited TV Material defaults. Idle, focused, selected, selected-correct, selected-incorrect, revealed-correct, and disabled cards each define their own container, text, and border colors. Focus uses a blue jewel-tone fill, gold border/glow, and scale treatment; answer outcomes add text labels so correctness never relies on color alone.
+
 The experience should continue to resemble a polished family game show with a distinct original identity. Do not add Disney logos, character artwork, film stills, copyrighted music, trademark graphics as decoration, or other protected assets. Factual names may appear in questions and category labels.
 
 The app name is sourced from `@string/app_name` for the manifest and Home screen, making it easy to rename in one place.
@@ -202,7 +204,7 @@ Back behavior:
 - Dialog Back dismisses the dialog.
 - Back on Home follows normal Android activity behavior.
 
-Compose instrumentation tests verify Home initial focus and D-pad movement/selection into Categories. They compile locally but require an Android TV emulator or physical device to execute.
+Compose instrumentation tests verify Home initial focus, D-pad movement/selection into Categories, and answer-card readability across focused, selected, selected-correct, selected-incorrect, revealed-correct, and disabled states. They compile locally but require an Android TV emulator or physical device to execute.
 
 # Android TV Requirements
 
@@ -307,7 +309,7 @@ There are 14 local JUnit tests covering:
 - Recent-history limits and newest-occurrence behavior.
 - Active game-state serialization and corrupt-state rejection.
 
-Two instrumented Compose tests cover initial Home focus and D-pad navigation/selection into Categories. `compileDebugAndroidTestKotlin` passes. The tests have not been executed because no emulator or Shield is connected in the current development environment.
+Eight instrumented Compose tests cover initial Home focus, D-pad navigation/selection into Categories, and all critical answer-card visual states. `compileDebugAndroidTestKotlin` passes. The tests have not been executed because no emulator or Shield is connected in the current development environment.
 
 `lintDebug` passes with zero errors. Its remaining warnings are dependency, Gradle, compile SDK, and target SDK version-availability notices retained for the verified AGP 8.13.2, Gradle 8.13, Kotlin 2.2.21, and SDK 35 compatibility set.
 
