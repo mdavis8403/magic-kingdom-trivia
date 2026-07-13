@@ -66,7 +66,7 @@ Navigation is intentionally lightweight rather than using Navigation Compose. `T
 - `app/src/main/java/com/mdavis8403/magickingdomtrivia/ui/` contains screen navigation, ViewModel, Compose UI, focus behavior, and theme.
 - `app/src/main/res/` contains the app-name string, colors, Android theme, adaptive launcher art, the 320 x 180 TV banner, and the full-screen Home background `drawable-nodpi/home_screen_background.webp`.
 - `app/src/test/` contains local JVM tests for JSON parsing, filtering, game logic, statistics, and restoration serialization.
-- `app/src/androidTest/` contains Android Compose tests for initial focus and D-pad navigation.
+- `app/src/androidTest/` contains Android Compose tests for home-overlay focus/D-pad navigation and answer-card visual states.
 - `README.md` is the concise setup, build, install, question-update, and branding guide.
 - `PROJECT.md` is the long-term source of truth.
 - `signing.properties.example` documents local release signing without containing credentials.
@@ -156,6 +156,8 @@ The interface uses a dark navy-to-plum gradient, jewel-tone gold/mint/rose accen
 
 The Home screen is the exception: it fills the display edge-to-edge with an approved full-screen background image (`@drawable/home_screen_background`) and overlays transparent, D-pad-focusable controls aligned to the artwork. The image and its overlays are locked to a shared 16:9 canvas (via `BoxWithConstraints`), so interactive regions stay aligned at 1920x1080, 3840x2160, and other 16:9 resolutions; only non-16:9 screens letterbox onto a dark gradient, which also serves as the fallback if the image cannot decode. Focused overlays draw only a tasteful treatment (soft gold glow, gold border, slight scale, faint gold wash) and never cover the baked-in text or icons; the active profile shows a steady gold selection ring distinct from the focus treatment. `TriviaApp` renders Home full-bleed and wraps every other screen in the gradient `MagicalBackdrop`.
 
+Answer cards use an explicit state palette rather than inherited TV Material defaults. Idle, focused, selected, selected-correct, selected-incorrect, revealed-correct, and disabled cards each define their own container, text, and border colors. Focus uses a blue jewel-tone fill, gold border/glow, and scale treatment; answer outcomes add text labels so correctness never relies on color alone.
+
 The experience should continue to resemble a polished family game show with a distinct original identity. Do not add Disney logos, character artwork, film stills, copyrighted music, trademark graphics as decoration, or other protected assets. Factual names may appear in questions and category labels.
 
 The app name is sourced from `@string/app_name` for the manifest label. The Home screen title is part of the approved background artwork rather than a text view, so renaming the app does not change the Home art.
@@ -204,7 +206,7 @@ Back behavior:
 - Dialog Back dismisses the dialog.
 - Back on Home follows normal Android activity behavior.
 
-Compose instrumentation tests verify Home initial focus on Play and D-pad navigation across the image-overlay controls (Play down to the Matt profile, and Play through the profile row into the Categories action). Overlay controls are located by their accessibility content descriptions. The tests compile locally but require an Android TV emulator or physical device to execute.
+Compose instrumentation tests verify Home initial focus on Play, D-pad navigation across the image-overlay home controls (Play down to the Matt profile, and Play through the profile row into the Categories action), and answer-card readability across focused, selected, selected-correct, selected-incorrect, revealed-correct, and disabled states. Overlay controls are located by their accessibility content descriptions. The tests compile locally but require an Android TV emulator or physical device to execute.
 
 # Android TV Requirements
 
@@ -309,7 +311,7 @@ There are 14 local JUnit tests covering:
 - Recent-history limits and newest-occurrence behavior.
 - Active game-state serialization and corrupt-state rejection.
 
-Three instrumented Compose tests cover initial Home focus on Play and D-pad navigation across the image-overlay controls into the Categories action. `compileDebugAndroidTestKotlin` passes. The tests have not been executed because no emulator or Shield is connected in the current development environment.
+Nine instrumented Compose tests cover initial Home focus on Play, D-pad navigation across the image-overlay home controls into the Categories action, and all critical answer-card visual states. `compileDebugAndroidTestKotlin` passes. The tests have not been executed because no emulator or Shield is connected in the current development environment.
 
 `lintDebug` passes with zero errors. Its remaining warnings are dependency, Gradle, compile SDK, and target SDK version-availability notices retained for the verified AGP 8.13.2, Gradle 8.13, Kotlin 2.2.21, and SDK 35 compatibility set.
 
