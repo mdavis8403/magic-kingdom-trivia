@@ -5,18 +5,22 @@ import android.media.ToneGenerator
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -28,6 +32,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -35,21 +40,31 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.withFrameNanos
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusProperties
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.SemanticsPropertyKey
 import androidx.compose.ui.semantics.SemanticsPropertyReceiver
+import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.disabled
+import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
@@ -87,7 +102,9 @@ fun TriviaApp(viewModel: TriviaViewModel) {
 
     BackHandler(enabled = screen != TriviaScreen.HOME) { viewModel.handleBack() }
 
-    MagicalBackdrop {
+    // The home screen is a full-bleed image concept, so it renders edge-to-edge.
+    // Every other screen keeps the padded MagicalBackdrop it was designed for.
+    Box(modifier = Modifier.fillMaxSize()) {
         AnimatedContent(
             targetState = screen,
             label = "screen-transition",
@@ -99,43 +116,49 @@ fun TriviaApp(viewModel: TriviaViewModel) {
                     onNavigate = viewModel::navigateTo,
                 )
 
-                TriviaScreen.CATEGORIES -> CategoryScreen(
-                    categories = state.categories,
-                    selectedCategoryId = state.selectedCategoryId,
-                    onSelect = viewModel::selectCategory,
-                )
+                else -> MagicalBackdrop {
+                    when (destination) {
+                        TriviaScreen.CATEGORIES -> CategoryScreen(
+                            categories = state.categories,
+                            selectedCategoryId = state.selectedCategoryId,
+                            onSelect = viewModel::selectCategory,
+                        )
 
-                TriviaScreen.DIFFICULTY -> DifficultyScreen(
-                    selectedDifficulty = state.selectedDifficulty,
-                    onSelect = viewModel::selectDifficulty,
-                )
+                        TriviaScreen.DIFFICULTY -> DifficultyScreen(
+                            selectedDifficulty = state.selectedDifficulty,
+                            onSelect = viewModel::selectDifficulty,
+                        )
 
-                TriviaScreen.SETTINGS -> SettingsScreen(
-                    settings = state.settings,
-                    onUpdate = viewModel::updateSettings,
-                )
+                        TriviaScreen.SETTINGS -> SettingsScreen(
+                            settings = state.settings,
+                            onUpdate = viewModel::updateSettings,
+                        )
 
-                TriviaScreen.STATISTICS -> StatisticsScreen(
-                    statistics = viewModel.statistics,
-                    onReturnHome = { viewModel.navigateTo(TriviaScreen.HOME) },
-                    onReset = viewModel::resetStatistics,
-                )
+                        TriviaScreen.STATISTICS -> StatisticsScreen(
+                            statistics = viewModel.statistics,
+                            onReturnHome = { viewModel.navigateTo(TriviaScreen.HOME) },
+                            onReset = viewModel::resetStatistics,
+                        )
 
-                TriviaScreen.QUESTION -> state.session?.let { session ->
-                    QuestionScreen(
-                        session = session,
-                        onSubmit = viewModel::submitAnswer,
-                        onNext = viewModel::next,
-                        onTick = viewModel::tickTimer,
-                    )
-                }
+                        TriviaScreen.QUESTION -> state.session?.let { session ->
+                            QuestionScreen(
+                                session = session,
+                                onSubmit = viewModel::submitAnswer,
+                                onNext = viewModel::next,
+                                onTick = viewModel::tickTimer,
+                            )
+                        }
 
-                TriviaScreen.RESULTS -> state.summary?.let { summary ->
-                    ResultsScreen(
-                        summary = summary,
-                        onPlayAgain = viewModel::playAgain,
-                        onReturnHome = viewModel::returnHome,
-                    )
+                        TriviaScreen.RESULTS -> state.summary?.let { summary ->
+                            ResultsScreen(
+                                summary = summary,
+                                onPlayAgain = viewModel::playAgain,
+                                onReturnHome = viewModel::returnHome,
+                            )
+                        }
+
+                        TriviaScreen.HOME -> Unit
+                    }
                 }
             }
         }
@@ -187,110 +210,236 @@ private fun MagicalBackdrop(content: @Composable () -> Unit) {
     }
 }
 
+/**
+ * Fractional bounds (0..1) of an interactive region within the 16:9 design
+ * canvas, refined visually against the approved home-screen artwork. Positions
+ * are proportional so the overlay stays aligned at every 16:9 resolution.
+ */
+private data class HomeRegion(
+    val left: Float,
+    val top: Float,
+    val right: Float,
+    val bottom: Float,
+    val cornerPercent: Int,
+)
+
+private object HomeLayout {
+    val Play = HomeRegion(0.155f, 0.420f, 0.455f, 0.548f, 42)
+    val Matt = HomeRegion(0.086f, 0.610f, 0.188f, 0.808f, 16)
+    val Meg = HomeRegion(0.198f, 0.610f, 0.300f, 0.808f, 16)
+    val Mia = HomeRegion(0.305f, 0.610f, 0.405f, 0.808f, 16)
+    val Guest = HomeRegion(0.415f, 0.610f, 0.515f, 0.808f, 16)
+    val Profiles = HomeRegion(0.080f, 0.840f, 0.285f, 0.918f, 50)
+    val Categories = HomeRegion(0.295f, 0.840f, 0.495f, 0.918f, 50)
+    val Statistics = HomeRegion(0.505f, 0.840f, 0.700f, 0.918f, 50)
+    val Settings = HomeRegion(0.710f, 0.840f, 0.930f, 0.918f, 50)
+}
+
+/**
+ * Image-based interactive home screen. The approved artwork is the exact
+ * full-screen background; transparent Compose focus targets are overlaid on top
+ * of the baked-in controls and mapped to the existing navigation and game
+ * actions. Nothing is redrawn in Compose beyond focus/selection treatments.
+ */
 @Composable
 private fun HomeScreen(
     state: TriviaGameState,
     onPlay: () -> Unit,
     onNavigate: (TriviaScreen) -> Unit,
 ) {
+    val profileNames = listOf("Matt", "Meg", "Mia", "Guest")
+    // Local selected-profile state. The artwork shows Matt selected by default;
+    // this hook lets the selection move to Meg/Mia/Guest without new artwork and
+    // is where a real profile system would plug in later.
+    var selectedProfile by rememberSaveable { mutableIntStateOf(0) }
+
     val playFocus = remember { FocusRequester() }
+    val profileFocus = remember { List(4) { FocusRequester() } }
+    val bottomFocus = remember { List(4) { FocusRequester() } }
     LaunchedEffect(Unit) { requestFocusAfterFrame(playFocus) }
-    val selectedCategory = state.categories.firstOrNull { it.id == state.selectedCategoryId }
 
-    Row(
-        modifier = Modifier.fillMaxSize(),
-        horizontalArrangement = Arrangement.spacedBy(42.dp),
+    BoxWithConstraints(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(
+                // Fallback + letterbox fill if the image cannot decode or the
+                // screen is not exactly 16:9.
+                Brush.linearGradient(colors = listOf(Ink, Color(0xFF102A4B), Color(0xFF23113C))),
+            ),
+        contentAlignment = Alignment.Center,
     ) {
-        Column(
-            modifier = Modifier
-                .width(360.dp)
-                .fillMaxHeight(),
-            verticalArrangement = Arrangement.Center,
-        ) {
-            Text(
-                text = stringResource(R.string.app_name),
-                fontSize = 46.sp,
-                fontWeight = FontWeight.ExtraBold,
-                color = Gold,
-            )
-            Text(
-                text = "A family trivia night, made for the big screen.",
-                style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier.padding(top = 8.dp, bottom = 30.dp),
-            )
-            HomeAction(
-                label = if (state.session == null) "Play" else "Resume game",
-                onClick = onPlay,
-                modifier = Modifier.focusRequester(playFocus),
-                primary = true,
-            )
-            HomeAction("Categories", { onNavigate(TriviaScreen.CATEGORIES) })
-            HomeAction("Difficulty", { onNavigate(TriviaScreen.DIFFICULTY) })
-            HomeAction("Game settings", { onNavigate(TriviaScreen.SETTINGS) })
-            HomeAction("Statistics", { onNavigate(TriviaScreen.STATISTICS) })
-        }
+        // Lock artwork and overlay controls to a shared 16:9 canvas so the
+        // interactive regions align at 1920x1080, 3840x2160, and any 16:9
+        // resolution. Only non-16:9 screens letterbox onto the gradient above.
+        val target = 16f / 9f
+        val screenRatio = maxWidth.value / maxHeight.value
+        val canvasW: Dp = if (screenRatio >= target) maxHeight * target else maxWidth
+        val canvasH: Dp = if (screenRatio >= target) maxHeight else maxWidth / target
 
-        Column(
-            modifier = Modifier
-                .weight(1f)
-                .fillMaxHeight(),
-            verticalArrangement = Arrangement.Center,
-        ) {
-            Surface(
-                colors = SurfaceDefaults.colors(containerColor = Panel),
-                shape = RoundedCornerShape(30.dp),
-                modifier = Modifier.fillMaxWidth(),
-            ) {
-                Column(
-                    modifier = Modifier.padding(34.dp),
-                    verticalArrangement = Arrangement.spacedBy(22.dp),
-                ) {
-                    Text("Tonight's game", color = Gold, style = MaterialTheme.typography.titleLarge)
-                    SetupLine("Category", selectedCategory?.title ?: "Unavailable")
-                    SetupLine("Difficulty", state.selectedDifficulty.displayName)
-                    SetupLine("Questions", state.settings.questionCount.toString())
-                    SetupLine("Timer", timerLabel(state.settings.timerSeconds))
-                    Text(
-                        text = if (state.session == null) {
-                            "Choose your options, then press Play. Everything runs offline."
-                        } else {
-                            "Your round is paused and ready to continue."
-                        },
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = Color(0xFFCFD9E8),
-                    )
-                }
-            }
+        Box(modifier = Modifier.size(canvasW, canvasH)) {
+            Image(
+                painter = painterResource(R.drawable.home_screen_background),
+                contentDescription = null,
+                contentScale = ContentScale.FillBounds,
+                modifier = Modifier.fillMaxSize(),
+            )
+
             state.errorMessage?.let { error ->
                 Text(
                     text = error,
                     color = Rose,
-                    style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier.padding(top = 18.dp),
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier
+                        .align(Alignment.TopCenter)
+                        .padding(top = canvasH * 0.02f)
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(Color(0xCC0A1220))
+                        .padding(horizontal = 18.dp, vertical = 8.dp),
+                )
+            }
+
+            HomeOverlayControl(
+                region = HomeLayout.Play,
+                canvasW = canvasW,
+                canvasH = canvasH,
+                contentLabel = if (state.session == null) "Play" else "Resume game",
+                onClick = onPlay,
+                modifier = Modifier
+                    .focusRequester(playFocus)
+                    .focusProperties {
+                        up = playFocus
+                        down = profileFocus[0]
+                        left = playFocus
+                        right = playFocus
+                    },
+            )
+
+            val profileRegions = listOf(HomeLayout.Matt, HomeLayout.Meg, HomeLayout.Mia, HomeLayout.Guest)
+            // Down from each profile goes to the nearest bottom action.
+            val profileDown = listOf(bottomFocus[0], bottomFocus[0], bottomFocus[1], bottomFocus[1])
+            profileNames.forEachIndexed { index, name ->
+                HomeOverlayControl(
+                    region = profileRegions[index],
+                    canvasW = canvasW,
+                    canvasH = canvasH,
+                    contentLabel = "$name profile",
+                    onClick = { selectedProfile = index },
+                    selected = selectedProfile == index,
+                    isProfile = true,
+                    modifier = Modifier
+                        .focusRequester(profileFocus[index])
+                        .focusProperties {
+                            up = playFocus
+                            down = profileDown[index]
+                            left = profileFocus[(index - 1).coerceAtLeast(0)]
+                            right = profileFocus[(index + 1).coerceAtMost(3)]
+                        },
+                )
+            }
+
+            val bottomRegions = listOf(HomeLayout.Profiles, HomeLayout.Categories, HomeLayout.Statistics, HomeLayout.Settings)
+            val bottomLabels = listOf("Profiles", "Categories", "Statistics", "Settings")
+            // Up from each bottom action returns to the nearest profile card.
+            val bottomUp = listOf(profileFocus[0], profileFocus[2], profileFocus[3], profileFocus[3])
+            val bottomActions = listOf<() -> Unit>(
+                // No dedicated profiles screen exists yet; the Profiles action moves
+                // focus to the profile chooser as a functional placeholder.
+                { profileFocus[selectedProfile].requestFocus() },
+                { onNavigate(TriviaScreen.CATEGORIES) },
+                { onNavigate(TriviaScreen.STATISTICS) },
+                { onNavigate(TriviaScreen.SETTINGS) },
+            )
+            bottomLabels.forEachIndexed { index, label ->
+                HomeOverlayControl(
+                    region = bottomRegions[index],
+                    canvasW = canvasW,
+                    canvasH = canvasH,
+                    contentLabel = label,
+                    onClick = bottomActions[index],
+                    modifier = Modifier
+                        .focusRequester(bottomFocus[index])
+                        .focusProperties {
+                            up = bottomUp[index]
+                            down = bottomFocus[index]
+                            left = bottomFocus[(index - 1).coerceAtLeast(0)]
+                            right = bottomFocus[(index + 1).coerceAtMost(3)]
+                        },
                 )
             }
         }
     }
 }
 
+/**
+ * A transparent, focusable overlay target sized to a [HomeRegion] on the 16:9
+ * canvas. It never paints over the baked-in artwork except for a tasteful focus
+ * treatment (soft gold glow, gold border, slight scale, faint gold wash) and a
+ * steady gold selection ring for the active profile.
+ */
 @Composable
-private fun HomeAction(
-    label: String,
+private fun HomeOverlayControl(
+    region: HomeRegion,
+    canvasW: Dp,
+    canvasH: Dp,
+    contentLabel: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    primary: Boolean = false,
+    selected: Boolean = false,
+    isProfile: Boolean = false,
 ) {
-    val buttonModifier = modifier
-        .fillMaxWidth()
-        .height(60.dp)
-        .padding(bottom = 8.dp)
-    if (primary) {
-        Button(onClick = onClick, modifier = buttonModifier) {
-            Text(label, fontSize = 21.sp, fontWeight = FontWeight.Bold)
-        }
-    } else {
-        OutlinedButton(onClick = onClick, modifier = buttonModifier) {
-            Text(label, fontSize = 20.sp)
+    var focused by remember { mutableStateOf(false) }
+    val shape = RoundedCornerShape(region.cornerPercent)
+    val scale = if (focused) 1.03f else 1f
+
+    Box(
+        modifier = modifier
+            .offset(x = canvasW * region.left, y = canvasH * region.top)
+            .size(
+                width = canvasW * (region.right - region.left),
+                height = canvasH * (region.bottom - region.top),
+            )
+            .graphicsLayer {
+                scaleX = scale
+                scaleY = scale
+            }
+            .onFocusChanged { focused = it.isFocused }
+            .shadow(
+                elevation = if (focused) 18.dp else 0.dp,
+                shape = shape,
+                clip = false,
+                ambientColor = Gold,
+                spotColor = Gold,
+            )
+            .clip(shape)
+            .then(if (focused) Modifier.background(Gold.copy(alpha = 0.10f)) else Modifier)
+            .then(
+                when {
+                    focused -> Modifier.border(width = 3.5.dp, color = Gold, shape = shape)
+                    selected -> Modifier.border(width = 2.5.dp, color = Gold.copy(alpha = 0.85f), shape = shape)
+                    else -> Modifier
+                },
+            )
+            .clickable(role = Role.Button, onClick = onClick)
+            .semantics {
+                contentDescription = contentLabel
+                if (isProfile) this.selected = selected
+            },
+    ) {
+        if (isProfile && selected) {
+            // Steady selection badge, distinct from the focus treatment and
+            // visible even when another control currently holds focus.
+            Box(
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .padding(canvasW * 0.007f)
+                    .size(canvasW * 0.014f)
+                    .drawBehind {
+                        drawRoundRect(
+                            color = Gold,
+                            cornerRadius = CornerRadius(size.minDimension / 2f),
+                        )
+                    },
+            )
         }
     }
 }

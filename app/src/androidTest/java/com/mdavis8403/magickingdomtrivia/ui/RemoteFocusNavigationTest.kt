@@ -4,6 +4,7 @@ import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsFocused
 import androidx.compose.ui.test.junit4.v2.createAndroidComposeRule
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performKeyInput
 import androidx.compose.ui.test.pressKey
@@ -13,6 +14,11 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
+/**
+ * Verifies D-pad focus behaviour of the image-based home screen. Its controls
+ * are transparent overlays on the artwork, so they are located by their
+ * accessibility content descriptions rather than by visible text.
+ */
 @RunWith(AndroidJUnit4::class)
 class RemoteFocusNavigationTest {
     @get:Rule
@@ -20,15 +26,29 @@ class RemoteFocusNavigationTest {
 
     @Test
     fun launch_placesFocusOnPlay() {
-        composeRule.onNodeWithText("Play").assertIsFocused()
+        composeRule.onNodeWithContentDescription("Play").assertIsFocused()
     }
 
     @Test
-    fun dpadDownAndSelect_opensCategories() {
-        composeRule.onNodeWithText("Play").performKeyInput {
+    fun dpadDown_movesFromPlayToMattProfile() {
+        composeRule.onNodeWithContentDescription("Play").performKeyInput {
             pressKey(Key.DirectionDown)
         }
-        composeRule.onNodeWithText("Categories").assertIsFocused().performKeyInput {
+        composeRule.onNodeWithContentDescription("Matt profile").assertIsFocused()
+    }
+
+    @Test
+    fun dpadNavigationAndSelect_opensCategories() {
+        composeRule.onNodeWithContentDescription("Play").performKeyInput {
+            pressKey(Key.DirectionDown)
+        }
+        composeRule.onNodeWithContentDescription("Matt profile").assertIsFocused().performKeyInput {
+            pressKey(Key.DirectionDown)
+        }
+        composeRule.onNodeWithContentDescription("Profiles").assertIsFocused().performKeyInput {
+            pressKey(Key.DirectionRight)
+        }
+        composeRule.onNodeWithContentDescription("Categories").assertIsFocused().performKeyInput {
             pressKey(Key.DirectionCenter)
         }
 
