@@ -77,12 +77,14 @@ Navigation is intentionally lightweight rather than using Navigation Compose. `T
 
 ## Storage and schema
 
-The bundled pack is `app/src/main/assets/questions/core_questions.json`, a single master JSON file shaped `{ "packId": ..., "questions": [ ... ] }`. It contains **2,600 questions**:
+The bundled pack is `app/src/main/assets/questions/core_questions.json`, a single master JSON file shaped `{ "packId": ..., "questions": [ ... ] }`. It contains **5,100 questions**:
 
-- **2,500 production questions** imported from the standalone validated question bank (see *Standalone question bank* below). Their totals are: Disney Animation 500, Pixar 350, Disney Parks 350, Marvel 300, and Disney Princesses, Live Action Disney, Disney Songs, and Star Wars 250 each; by difficulty, Easy 865, Medium 895, Hard 740. IDs follow `<prefix>_<difficulty>_<NNN>` (for example `animation_easy_001`).
+- **5,000 production questions** imported from the standalone validated question bank (see *Standalone question bank* below). Their totals are: Disney Animation 1,000, Pixar 700, Disney Parks 700, Marvel 600, and Disney Princesses, Live Action Disney, Disney Songs, and Star Wars 500 each; by difficulty, Easy 1,730, Medium 1,790, Hard 1,480. IDs follow `<prefix>_<difficulty>_<NNN>` (for example `animation_easy_001`).
 - **100 retained original seed questions** carried over from the initial build. Four of the original 104 seeds were exact duplicates of the production bank and were dropped; the remaining 100 (IDs like `animation_001`) are kept because they are not duplicates.
 
-Combined difficulty totals are Easy 903, Medium 927, Hard 770. Category totals include the retained seeds (roughly 12–13 per category on top of the production totals above).
+Combined difficulty totals are Easy 1,768, Medium 1,822, Hard 1,510. Category totals include the retained seeds (roughly 12–13 per category on top of the production totals above).
+
+The production bank was built in two 2,500-question waves with the identical distribution, so every category-and-difficulty file's count doubled. New questions were appended after the existing ones, then the standalone `validation/normalize.py` renumbered every file's ids sequentially from `001` and rebalanced answer positions; the second wave was deduplicated (exact, normalized, and near-duplicate prompt checks) against the entire first wave and the existing bank before integration.
 
 Each entry uses this eight-field schema:
 
@@ -135,11 +137,11 @@ Question order can be randomized. Answer choices are converted to `TriviaChoice`
 
 ## Standalone question bank and regeneration
 
-The 2,500 production questions are authored and validated in a separate standalone repository at `../magic-kingdom-trivia-question-bank` (2,500 questions across 24 JSON files with a nine-field schema and its own Python validator). That repository is the source of truth for production content and is not modified by the app.
+The 5,000 production questions are authored and validated in a separate standalone repository at `../magic-kingdom-trivia-question-bank` (5,000 questions across 24 JSON files with a nine-field schema and its own Python validator). That repository is the source of truth for production content and is not modified by the app.
 
 The bundled `core_questions.json` is assembled from two sources by `tools/build_question_pack.py`:
 
-1. the standalone bank (2,500 questions, `subtopic` dropped during conversion), and
+1. the standalone bank (5,000 questions, `subtopic` dropped during conversion), and
 2. `tools/original_seed_questions.json` (the original 104 seed questions; exact duplicates of the bank are dropped automatically).
 
 Regenerate the pack with `python3 tools/build_question_pack.py` (set `MK_QUESTION_BANK` or pass `--bank <path>` if the bank is not the sibling directory). Use `--check` in CI to fail when the committed asset is stale.
@@ -148,7 +150,7 @@ To add or replace questions, prefer editing the standalone bank (or `tools/origi
 
 ## Automated pack validation
 
-`ProductionQuestionBankTest` (a local JVM unit test) loads the real bundled asset, parses it with `QuestionJsonParser`, and asserts hard invariants during `./gradlew test` and CI: zero parser validation errors, exactly 2,600 questions (2,500 production + 100 retained seeds), exact production category and difficulty totals, unique IDs, no normalized-duplicate prompts, four distinct answers per question, in-range correct indices, presence of all eight categories plus Mixed, and at least 50 questions in every category-and-difficulty slice so 10/20/30/50-question rounds are always fillable.
+`ProductionQuestionBankTest` (a local JVM unit test) loads the real bundled asset, parses it with `QuestionJsonParser`, and asserts hard invariants during `./gradlew test` and CI: zero parser validation errors, exactly 5,100 questions (5,000 production + 100 retained seeds), exact production category and difficulty totals, unique IDs, no normalized-duplicate prompts, four distinct answers per question, in-range correct indices, presence of all eight categories plus Mixed, and at least 50 questions in every category-and-difficulty slice so 10/20/30/50-question rounds are always fillable.
 
 # User Experience
 
@@ -397,7 +399,7 @@ The active implementation branch is `codex/initial-build`. Future names should u
 
 # Known Limitations
 
-- The bundled pack holds 2,600 questions. Every category-and-difficulty slice has at least 50 production questions, so 10/20/30/50-question rounds are fillable in every category and difficulty, including Mixed. The shortage notice remains as a safety path but is not expected during normal play.
+- The bundled pack holds 5,100 questions. Every category-and-difficulty slice has at least 50 production questions, so 10/20/30/50-question rounds are fillable in every category and difficulty, including Mixed. The shortage notice remains as a safety path but is not expected during normal play.
 - Only one bundled question pack is loaded; custom pack importing is not implemented.
 - Questions are validated at runtime rather than by a dedicated Gradle validation task.
 - Question content has not received independent editorial/fact-check review.

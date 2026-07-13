@@ -33,7 +33,7 @@ class ProductionQuestionBankTest {
 
     @Test
     fun pack_loadsExpectedTotals() {
-        // 2,500 production questions from the standalone bank + 100 retained
+        // 5,000 production questions from the standalone bank + 100 retained
         // original seed questions (4 exact duplicates were dropped).
         assertEquals(EXPECTED_TOTAL, catalog.questions.size)
         assertEquals(EXPECTED_PRODUCTION, production().size)
@@ -149,25 +149,25 @@ class ProductionQuestionBankTest {
     private fun production() = catalog.questions.filter { PRODUCTION_ID.matches(it.id) }
 
     private companion object {
-        const val EXPECTED_TOTAL = 2600
-        const val EXPECTED_PRODUCTION = 2500
+        const val EXPECTED_TOTAL = 5100
+        const val EXPECTED_PRODUCTION = 5000
         const val EXPECTED_RETAINED = 100
         val PRODUCTION_ID = Regex(".*_(easy|medium|hard)_\\d{3}$")
 
         val EXPECTED_CATEGORY_TOTALS = sortedMapOf(
-            "Disney Animation" to 500,
-            "Disney Parks" to 350,
-            "Disney Princesses" to 250,
-            "Disney Songs" to 250,
-            "Live Action Disney" to 250,
-            "Marvel" to 300,
-            "Pixar" to 350,
-            "Star Wars" to 250,
+            "Disney Animation" to 1000,
+            "Disney Parks" to 700,
+            "Disney Princesses" to 500,
+            "Disney Songs" to 500,
+            "Live Action Disney" to 500,
+            "Marvel" to 600,
+            "Pixar" to 700,
+            "Star Wars" to 500,
         )
         val EXPECTED_DIFFICULTY_TOTALS = mapOf(
-            Difficulty.EASY to 865,
-            Difficulty.MEDIUM to 895,
-            Difficulty.HARD to 740,
+            Difficulty.EASY to 1730,
+            Difficulty.MEDIUM to 1790,
+            Difficulty.HARD to 1480,
         )
 
         fun normalize(text: String): String =
